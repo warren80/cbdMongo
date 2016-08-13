@@ -1,0 +1,24 @@
+cbd tests:
+
+http://localhost:8080/addInventory?name=cbdOil&description=oil&price=19.99
+
+curl -H "Content-Type: application/json" -X POST -d '{
+   "name":"Warren Voelkl",
+   "address":{
+      "city":"Vancouver",
+      "streetNumber":"1311 Beach",
+      "postalCode":"v6e1v6",
+      "province":"BC",
+      "country":"Canada"
+   },
+   "OrderItems":[
+      {
+         "itemId":"lkasj",
+         "count":2
+      },
+      {
+         "itemId":"ldka",
+         "count":3
+      }
+   ]
+}' http://localhost:8080/order
