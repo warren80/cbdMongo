@@ -1,5 +1,6 @@
 package com.cbd.backend.api;
 
+import com.cbd.backend.database.SampleData;
 import com.cbd.backend.model.Inventory;
 import com.cbd.backend.service.impl.InventoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,19 @@ public class InventoryController {
     @Autowired
     InventoryServiceImpl inventoryServiceImpl;
 
-//    @RequestMapping("/addInventory")
-//    public String addInventory(@RequestParam(value="name") String name,
-//                               @RequestParam(value="description") String description,
-//                               @RequestParam(value="price") String price) {
-//        String result = inventoryServiceImpl.createInventoryItem( name, description, price );
-//        return  result;
-//    }
+    @RequestMapping("/addInventory")
+    public String addInventory() {
+        inventoryServiceImpl.addInventory();
+        return "Data Loaded";
+    }
+
+    @RequestMapping("/getInventoryItem")
+    public String getInventory (@RequestParam(value="name") String name) {
+        return inventoryServiceImpl.getInventoryItem( name );
+    }
 
     @RequestMapping("/getInventory")
-    public Inventory getInventory (@RequestParam(value="name") String name) {
-        return inventoryServiceImpl.getInventoryItem( name );
+    public String getInventory () {
+        return inventoryServiceImpl.getInventory();
     }
 }

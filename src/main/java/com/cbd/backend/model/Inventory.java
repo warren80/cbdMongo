@@ -6,28 +6,27 @@ import java.time.LocalDateTime;
 
 public class Inventory {
 
-    private String item;
+    private String itemName;
     private String description;
-    private int price;
-    private LocalDateTime dateTime;
-
+    private int priceInCents;
+    private LocalDateTime lastUpdated;
     @Id
-    private final String id;
+    private String id;
 
-    public Inventory(String item, String description, int price, String id) {
-        this.item = item;
+    public Inventory(String itemName, String description, int priceInCents, String id, LocalDateTime lastUpdated) {
+        this.itemName = itemName;
         this.description = description;
-        this.price = price;
-        this.dateTime = LocalDateTime.now();
+        this.priceInCents = priceInCents;
+        this.lastUpdated = lastUpdated;
         this.id = id;
     }
 
-    public String getItem() {
-        return item;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getDescription() {
@@ -38,19 +37,19 @@ public class Inventory {
         this.description = description;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPriceInCents() {
+        return priceInCents;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPriceInCents(int priceInCents) {
+        this.priceInCents = priceInCents;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

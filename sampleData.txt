@@ -1,0 +1,16 @@
+[ 
+  {
+    "itemName": "food",
+    "description": "Something to eat",
+    "stock": 1,
+    "priceInCents": 100,
+    "lastUpdated" : null
+  },
+  {
+    "itemName": "drink",
+    "description": "Something to drink",
+    "stock": 1,
+    "priceInCents": 100,
+    "lastUpdated" : null
+  }
+]

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository()
 public interface InventoryRepository extends MongoRepository<Inventory, String> {
     List<Inventory> findAll();
-    Inventory findTopByItemOrderByDateTime(String dateTime);
-    //BOrderByDateDesc(String item);
+    Inventory findTopByItemNameOrderByLastUpdatedDesc(String itemName);
+    Inventory[] findByItemNameOrderByLastUpdatedAsc(String itemName);
+    Inventory[] findByItemName( String itemName );
 }

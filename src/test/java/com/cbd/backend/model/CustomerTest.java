@@ -1,7 +1,6 @@
 package com.cbd.backend.model;
 
 import com.google.gson.Gson;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertNotNull;

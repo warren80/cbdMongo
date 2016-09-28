@@ -3,17 +3,13 @@ package com.cbd.backend.model;
 import org.springframework.data.annotation.Id;
 
 public class OrderItem {
-    @Id
-    private String id;
+
     private String itemId;
-    private String count;
+    private int count;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public OrderItem(String itemId, int count) {
+        this.itemId = itemId;
+        this.count = count;
     }
 
     public String getItemId() {
@@ -24,11 +20,11 @@ public class OrderItem {
         this.itemId = itemId;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }
