@@ -1,0 +1,36 @@
+# config context path to "/" by setting an empty string
+server:
+  contextPath:
+
+# JACKSON
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  data:
+    mongodb:
+      port: 27017
+      uri: mongodb://localhost/test
+      database: test
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+
+authentication:
+  user: admin
+  password: $2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi
+  firstName: admin
+  lastName: admin
+  email: admin@admin.com
+
+
+#logging:
+#  level:
+#    org.springframework:
+#      security: DEBUG

@@ -1,7 +1,5 @@
 package com.cbd.backend.model;
 
-import org.springframework.data.annotation.Id;
-
 public class OrderItem {
 
     private String itemId;

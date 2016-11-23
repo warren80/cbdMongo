@@ -1,7 +1,5 @@
 package com.cbd.backend.api;
 
-import com.cbd.backend.database.SampleData;
-import com.cbd.backend.model.Inventory;
 import com.cbd.backend.service.impl.InventoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class InventoryController {
+public class InventoryRestController {
 
     @Autowired
     InventoryServiceImpl inventoryServiceImpl;

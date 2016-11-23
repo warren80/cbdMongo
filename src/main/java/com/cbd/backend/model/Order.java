@@ -1,6 +1,5 @@
 package com.cbd.backend.model;
 
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
