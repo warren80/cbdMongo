@@ -1,5 +1,6 @@
 package com.cbd.backend.security;
 
+import com.cbd.backend.model.JwtUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

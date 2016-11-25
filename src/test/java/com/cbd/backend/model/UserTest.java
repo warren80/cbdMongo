@@ -17,30 +17,16 @@ public class UserTest {
 
     UserRepository userRepository;
 
+    private static String username = "wvoelkl";
+    private static String password = "password";
+    private static String firstName = "warren";
+    private static String lastName = "voelkl";
+    private static String email = "warrenvoelkl@gmail.com";
+    private static String account =  "BugsSoftware";
+
     @Test
     public void createUser() {
-        long timestamp = System.currentTimeMillis();
-        User u = new User();
-        List<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority("admin" , true) );
-        String username = "wvoelkl";
-        String password = "password";
-        String firstName = "warren";
-        String lastName = "voelkl";
-        String email = "warrenvoelkl@gmail.com";
-        String account =  "BugsSoftware";
-
-
-        u.setAuthory( authorities );
-        u.setUsername( username );
-        u.setPassword( password );
-        u.setAccount( account );
-        u.setFirstName( firstName );
-        u.setLastName( lastName );
-        u.setEmail( email );
-        u.setPasswordUpdateDate( timestamp );
-        u.setLastUpdated( timestamp );
-        u.setId( timestamp );
+        User u = getStockUser();
 
         assertNotNull( u.getAuthority() );
         assertTrue( u.getUsername().equals( username ) );
@@ -49,7 +35,27 @@ public class UserTest {
         assertTrue( u.getFirstName().equals( firstName ) );
         assertTrue( u.getLastName().equals( lastName ) );
         assertTrue( u.getEmail().equals( email ) );
-        assertEquals( u.getLastUpdated(), timestamp );
+    }
+
+    public static User getStockUser() {
+        long timestamp = System.currentTimeMillis();
+        User u = new User();
+        List<Authority> authorities = new ArrayList<>();
+        authorities.add(new Authority("admin" , true) );
+
+
+        u.setAuthority( authorities );
+        u.setUsername( username );
+        u.setPassword( password );
+        u.setAccount( account );
+        u.setFirstName( firstName );
+        u.setLastName( lastName );
+        u.setEmail( email );
+        u.setPasswordUpdateDate( timestamp );
+        u.setLastUpdated( timestamp );
+        u.setSecurityId( 1L );
+
+        return u;
     }
 
 

@@ -3,7 +3,7 @@ package com.cbd.backend.security.service;
 import com.cbd.backend.database.UserRepository;
 import com.cbd.backend.model.Authority;
 import com.cbd.backend.model.User;
-import com.cbd.backend.security.JwtUserFactory;
+import com.cbd.backend.model.Factory.JwtUserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,7 +58,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
         authorities.add(new Authority("ROLE_ACCOUNT_ADMIN", true) );
         // authorities.add(new Authority("ROLE_ACCOUNT_USER", true ) );
 
-        u.setAuthory( authorities );
+        u.setAuthority( authorities );
         u.setUsername( adminUser );
         u.setPassword( adminPass );
         u.setFirstName( adminFirstName );
@@ -66,7 +66,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
         u.setEmail( adminEmail );
         u.setPasswordUpdateDate( timestamp );
         u.setLastUpdated( timestamp );
-        u.setId( 0L );
+        u.setSecurityId( 1L );
         u.setEnabled( true );
         return u;
     }

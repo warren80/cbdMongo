@@ -1,8 +1,8 @@
-package com.cbd.backend.security.controller;
+package com.cbd.backend.api;
 
 import com.cbd.backend.security.JwtAuthenticationRequest;
 import com.cbd.backend.security.JwtTokenUtil;
-import com.cbd.backend.security.JwtUser;
+import com.cbd.backend.model.JwtUser;
 import com.cbd.backend.security.service.JwtAuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +34,7 @@ public class AuthenticationRestController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
+    @RequestMapping(value = "${api.auth}", method = RequestMethod.POST)
 //    @CrossOrigin(origins = "${http://localhost:8002}")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
 
@@ -45,6 +45,10 @@ public class AuthenticationRestController {
                         authenticationRequest.getPassword()
                 )
         );
+
+
+
+        Object c = authentication.getCredentials();
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Reload password post-security so we can generate token

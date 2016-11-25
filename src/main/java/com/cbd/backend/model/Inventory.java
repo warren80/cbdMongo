@@ -8,15 +8,13 @@ public class Inventory {
 
     private String itemName;
     private String description;
-    private int priceInCents;
-    private LocalDateTime lastUpdated;
+    private long lastUpdated;
     @Id
     private String id;
 
-    public Inventory(String itemName, String description, int priceInCents, String id, LocalDateTime lastUpdated) {
+    public Inventory(String itemName, String description, String id, long lastUpdated) {
         this.itemName = itemName;
         this.description = description;
-        this.priceInCents = priceInCents;
         this.lastUpdated = lastUpdated;
         this.id = id;
     }
@@ -37,19 +35,11 @@ public class Inventory {
         this.description = description;
     }
 
-    public int getPriceInCents() {
-        return priceInCents;
-    }
-
-    public void setPriceInCents(int priceInCents) {
-        this.priceInCents = priceInCents;
-    }
-
-    public LocalDateTime getLastUpdated() {
+    public long getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) {
+    public void setLastUpdated(long lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }

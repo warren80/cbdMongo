@@ -1,9 +1,13 @@
 package com.cbd.backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     private String username;
     private String password;
     private String firstName;
@@ -12,11 +16,25 @@ public class User {
     private String account;
     private long passwordUpdateDate;
     private long lastUpdated;
-    private long id;
+    private String id;
+
+    public long getIdSecurityNumber() {
+        return idSecurityNumber;
+    }
+
+    public void setIdSecurityNumber(long idSecurityNumber) {
+        this.idSecurityNumber = idSecurityNumber;
+    }
+
+    private long idSecurityNumber;
     private List<Authority> authority;
     private boolean isEnabled;
 
-    public User(String username, String password, String firstName, String lastName,  String email, String account, long passwordUpdateDate, long id, List<Authority> authority, boolean isEnabled){
+    public User() {
+        super();
+    }
+
+    public User(String username, String password, String firstName, String lastName, String email, String account, long passwordUpdateDate, long id, List<Authority> authority, boolean isEnabled){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -24,12 +42,10 @@ public class User {
         this.email = email;
         this.account = account;
         this.passwordUpdateDate = passwordUpdateDate;
-        this.id = id;
+        this.idSecurityNumber = id;
         this.authority = authority;
         this.isEnabled = isEnabled;
     }
-
-    public User(){}
 
     public String getUsername() {
         return username;
@@ -39,10 +55,12 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -95,11 +113,13 @@ public class User {
         this.lastUpdated = lastUpdated;
     }
 
-    public long getId() {
+    @JsonIgnore
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    @JsonIgnore
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -107,7 +127,7 @@ public class User {
         return authority;
     }
 
-    public void setAuthory(List<Authority> authority) {
+    public void setAuthority(List<Authority> authority) {
         this.authority = authority;
     }
 
@@ -117,5 +137,8 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public void setSecurityId(long l) {
     }
 }

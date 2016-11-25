@@ -4,6 +4,8 @@ public class Authority {
     private boolean authorized;
     public String name;
 
+    public Authority() {}
+
     public Authority( String name, boolean authorized ) {
         this.setAuthorized( authorized );
         this.name = name;

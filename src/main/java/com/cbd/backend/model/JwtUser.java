@@ -1,4 +1,4 @@
-package com.cbd.backend.security;
+package com.cbd.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,19 +41,10 @@ public class JwtUser implements UserDetails {
         this.authorities = authorities;
         this.enabled = enabled;
         this.lastPasswordResetDate = lastPasswordResetDate;
-//        this.id = 1L;
-//        this.username = "admin";
-//        this.firstname = "admin";
-//        this.lastname = "admin";
-//        this.email = "admin@admin.com";
-//        this.password = "$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi";
-//        this.authorities = authorities;
-//        this.enabled = enabled;
-//        this.lastPasswordResetDate =  new Date("01-01-2016");
     }
 
     @JsonIgnore
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

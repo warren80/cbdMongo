@@ -28,7 +28,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void addInventory() {
-        LocalDateTime dateTime = LocalDateTime.now();
+        long timeStamp = System.currentTimeMillis();
         String jsonString = null;
         try {
             jsonString = FileUtils.readFileToString( new File( "sampleData.txt" ), "UTF-8");
@@ -42,7 +42,7 @@ public class InventoryServiceImpl implements InventoryService {
 
         List<Inventory> inventories = gson.fromJson(jsonString, listType );
         for(Inventory inventory : inventories) {
-            inventory.setLastUpdated(dateTime);
+            inventory.setLastUpdated(timeStamp);
             inventoryRepository.save(inventory);
             System.out.println(inventory);
         }

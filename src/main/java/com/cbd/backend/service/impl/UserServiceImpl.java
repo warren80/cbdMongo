@@ -1,77 +1,68 @@
 package com.cbd.backend.service.impl;
 
 import com.cbd.backend.database.UserRepository;
+import com.cbd.backend.helper.Helpers;
 import com.cbd.backend.model.Authority;
 import com.cbd.backend.model.User;
+import com.cbd.backend.service.UserService;
+import com.mongodb.MongoException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.cbd.backend.helper.Helpers.objectToJson;
+
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    User addUser (String username, String password, String firstName, String lastName, String email, String account, long passwordUpdateDate, long timestamp, long id, com.sun.tools.javac.util.List<Authority> authorizations ) {
+    static Logger log = Logger.getLogger( UserServiceImpl.class.getName() );
+
+    @Override
+    public User addUser(User user) {
+
+        user.setPassword(Helpers.passwordEncoder( user.getPassword() ) );
+        log.info( "Saving New User: " + user.getUsername() );
+        log.debug( objectToJson( user ) );
+        User savedUser = persistUser( user );
+
+        return savedUser;
+    }
+
+    @Override
+    public User updateUser(User user) {
         return null;
     }
 
-    @Autowired
-    public  UserServiceImpl ( @Qualifier("userRepository") UserRepository repo) {
-        this.userRepository = repo;
+    @Override
+    public User updateUserAuthorities(List<Authority> authorities) {
+        return null;
     }
 
 
-    public User addStockUser() {
-        long timestamp = System.currentTimeMillis();
-        User u = new User();
-        List<Authority> authorities = new ArrayList<Authority>();
-        authorities.add(new Authority("admin" , true) );
+    @Override
+    public boolean prevalidateUser(User user) {
+        String email = user.getEmail();
+        log.debug( "Validating email: " + email);
+        return false;
 
+    }
 
-        u.setAuthory( authorities );
-        u.setUsername( "wvoelkl" );
-        u.setAccount( "password" );
-        u.setFirstName( "Warren" );
-        u.setLastName( "Voelkl" );
-        u.setEmail( "warrenvoelkl@gmail.com" );
-        u.setAccount( "BugsSoftware" );
-        u.setPasswordUpdateDate( timestamp );
-        u.setLastUpdated( timestamp );
-        u.setId( timestamp );
-
-        User result = userRepository.save( u );
-        return u;
-
-//        Type listType = new TypeToken<List<Inventory>>() {}.getType();
-
-        //inventoryRepository.deleteAll();
-
-//        List<Inventory> inventories = gson.fromJson(jsonString, listType );
-//        for(Inventory inventory : inventories) {
-//            inventory.setLastUpdated(dateTime);
-//            inventoryRepository.save(inventory);
-//            System.out.println(inventory);
-//        }
-}
+    private User persistUser( User user ) {
+        User savedUser = null;
+        try {
+            savedUser = userRepository.save(user);
+        } catch ( Exception e ) {
+            log.error ( "Database Exception: ", e );
+            throw new MongoException( "Failed to save user: " + user.getUsername() );
+        }
+        return savedUser;
+    }
 
 
 
-    //TODO determine if jwt already hashes password
-//    public static byte[] hashPassword( final char[] password, final byte[] salt, final int iterations, final int keyLength ) {
-//
-//        try {
-//            SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
-//            PBEKeySpec spec = new PBEKeySpec( password, salt, iterations, keyLength );
-//            SecretKey key = skf.generateSecret( spec );
-//            byte[] res = key.getEncoded( );
-//            return res;
-//
-//        } catch( NoSuchAlgorithmException | InvalidKeySpecException e ) {
-//            throw new RuntimeException( e );
-//        }
-//    }
 }

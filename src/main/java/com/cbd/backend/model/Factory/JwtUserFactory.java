@@ -1,6 +1,7 @@
-package com.cbd.backend.security;
+package com.cbd.backend.model.Factory;
 
 import com.cbd.backend.model.Authority;
+import com.cbd.backend.model.JwtUser;
 import com.cbd.backend.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,7 @@ public final class JwtUserFactory {
 
     public static JwtUser create(User user) {
         return new JwtUser(
-                user.getId(),
+                user.getIdSecurityNumber(),
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
@@ -24,7 +25,7 @@ public final class JwtUserFactory {
                 user.getPassword(),
                 mapToGrantedAuthorities( user.getAuthority() ),
                 user.isEnabled(),
-                new Date( user.getPasswordUpdateDate() )
+                new Date( user.getPasswordUpdateDate() - ( 60 * 1000 * 1000))
         );
     }
 
