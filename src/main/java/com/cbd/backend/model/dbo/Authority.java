@@ -1,6 +1,6 @@
-package com.cbd.backend.model;
+package com.cbd.backend.model.dbo;
 
-public class Authority {
+public class Authority extends Model {
     private boolean authorized;
     public String name;
 

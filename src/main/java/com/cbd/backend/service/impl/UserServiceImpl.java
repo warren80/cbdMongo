@@ -1,9 +1,14 @@
 package com.cbd.backend.service.impl;
 
 import com.cbd.backend.database.UserRepository;
+import com.cbd.backend.helper.EmailValidator;
 import com.cbd.backend.helper.Helpers;
-import com.cbd.backend.model.Authority;
-import com.cbd.backend.model.User;
+import com.cbd.backend.helper.PasswordValidator;
+import com.cbd.backend.model.NewUser;
+import com.cbd.backend.model.dbo.Authority;
+import com.cbd.backend.model.dbo.User;
+import com.cbd.backend.model.UserValidationResult;
+import com.cbd.backend.service.DataService;
 import com.cbd.backend.service.UserService;
 import com.mongodb.MongoException;
 import org.apache.log4j.Logger;
@@ -18,7 +23,7 @@ import static com.cbd.backend.helper.Helpers.objectToJson;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    DataService dataAccessService;
 
     static Logger log = Logger.getLogger( UserServiceImpl.class.getName() );
 
@@ -43,26 +48,30 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-
     @Override
-    public boolean prevalidateUser(User user) {
+    public UserValidationResult validateUser (NewUser user ) {
         String email = user.getEmail();
-        log.debug( "Validating email: " + email);
-        return false;
+        UserValidationResult userValidationResult = new UserValidationResult();
 
+        PasswordValidator pwv = new PasswordValidator( userValidationResult );
+
+
+        log.debug( "Validating email: " + email);
+        userValidationResult.setEmailValid( EmailValidator.isValidMail( email ) );
+        pwv.validateNewPass( user.getPassword(), user.getPasswordCheck() );
+        userValidationResult.setAccountValid( dataAccessService.verifyAccount( user.getAccount() ) );
+
+        return userValidationResult;
     }
 
     private User persistUser( User user ) {
         User savedUser = null;
         try {
-            savedUser = userRepository.save(user);
+            savedUser = dataAccessService.saveUser(user);
         } catch ( Exception e ) {
             log.error ( "Database Exception: ", e );
             throw new MongoException( "Failed to save user: " + user.getUsername() );
         }
         return savedUser;
     }
-
-
-
 }

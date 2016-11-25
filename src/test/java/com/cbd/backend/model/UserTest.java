@@ -1,6 +1,8 @@
 package com.cbd.backend.model;
 
 import com.cbd.backend.database.UserRepository;
+import com.cbd.backend.model.dbo.Authority;
+import com.cbd.backend.model.dbo.User;
 import com.google.gson.Gson;
 import org.junit.Test;
 

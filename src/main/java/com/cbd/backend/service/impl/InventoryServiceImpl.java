@@ -2,7 +2,7 @@ package com.cbd.backend.service.impl;
 
 import com.cbd.backend.database.InventoryRepository;
 import com.cbd.backend.database.InventoryTemplate;
-import com.cbd.backend.model.Inventory;
+import com.cbd.backend.model.dbo.Inventory;
 import com.cbd.backend.service.InventoryService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service

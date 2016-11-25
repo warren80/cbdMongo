@@ -1,6 +1,6 @@
 package com.cbd.backend.database;
 
-import com.cbd.backend.model.Inventory;
+import com.cbd.backend.model.dbo.Inventory;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

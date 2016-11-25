@@ -1,5 +1,6 @@
 package com.cbd.backend.model;
 
+import com.cbd.backend.model.dbo.Customer;
 import com.google.gson.Gson;
 import org.junit.Test;
 

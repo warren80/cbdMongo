@@ -1,6 +1,6 @@
 package com.cbd.backend.database;
 
-import com.cbd.backend.model.Order;
+import com.cbd.backend.model.dbo.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

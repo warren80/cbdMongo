@@ -1,8 +1,8 @@
 package com.cbd.backend.security.service;
 
 import com.cbd.backend.database.UserRepository;
-import com.cbd.backend.model.Authority;
-import com.cbd.backend.model.User;
+import com.cbd.backend.model.dbo.Authority;
+import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.model.Factory.JwtUserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

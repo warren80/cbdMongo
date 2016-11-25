@@ -2,8 +2,8 @@ package com.cbd.backend.service.impl;
 
 import com.cbd.backend.database.CustomerRepository;
 import com.cbd.backend.database.OrderRepository;
-import com.cbd.backend.model.Customer;
-import com.cbd.backend.model.Order;
+import com.cbd.backend.model.dbo.Customer;
+import com.cbd.backend.model.dbo.Order;
 import com.cbd.backend.service.OrderService;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;

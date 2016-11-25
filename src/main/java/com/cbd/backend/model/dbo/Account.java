@@ -1,11 +1,12 @@
-package com.cbd.backend.model;
+package com.cbd.backend.model.dbo;
 
-public class Account {
+public class Account extends Model{
     private String accountName;
     private String accountPhone;
     private String timeZone;
     private Measurements measurements;
     private FarmPlotScheme farmPlotScheme;
+    private long subscriptionEndDate;
     private String id;
 
     public String getAccountName() {
@@ -54,5 +55,13 @@ public class Account {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public long getSubscriptionEndDate() {
+        return subscriptionEndDate;
+    }
+
+    public void setSubscriptionEndDate(long subscriptionEndDate) {
+        this.subscriptionEndDate = subscriptionEndDate;
     }
 }

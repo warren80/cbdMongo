@@ -1,6 +1,6 @@
 package com.cbd.backend.helper;
 
-import com.cbd.backend.model.User;
+import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.model.UserTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;

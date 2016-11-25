@@ -1,4 +1,4 @@
-package com.cbd.backend.model;
+package com.cbd.backend.model.dbo;
 
 public class OrderItem {
 

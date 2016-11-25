@@ -2,7 +2,8 @@ package com.cbd.backend.api;
 
 
 import com.cbd.backend.model.JwtUser;
-import com.cbd.backend.model.User;
+import com.cbd.backend.model.NewUser;
+import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.security.JwtTokenUtil;
 import com.cbd.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class UserRestController {
 //    final static String value /api;
 
     @RequestMapping(value = "/api/users", method = RequestMethod.POST)
-    public ResponseEntity<?> getAuthenticatedUser(@RequestBody User user) {
+    public ResponseEntity<?> getAuthenticatedUser(@RequestBody NewUser user) {
+
+        userService.validateUser()
         User result = userService.addUser( user );
         return ResponseEntity.ok( result );
     }

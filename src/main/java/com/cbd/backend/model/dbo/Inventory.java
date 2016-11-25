@@ -1,14 +1,11 @@
-package com.cbd.backend.model;
+package com.cbd.backend.model.dbo;
 
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDateTime;
-
-public class Inventory {
+public class Inventory extends Model {
 
     private String itemName;
     private String description;
-    private long lastUpdated;
     @Id
     private String id;
 

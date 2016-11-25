@@ -1,8 +1,8 @@
 package com.cbd.backend.model.Factory;
 
-import com.cbd.backend.model.Authority;
+import com.cbd.backend.model.dbo.Authority;
 import com.cbd.backend.model.JwtUser;
-import com.cbd.backend.model.User;
+import com.cbd.backend.model.dbo.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

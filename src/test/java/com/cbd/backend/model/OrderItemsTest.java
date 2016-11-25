@@ -1,7 +1,7 @@
 package com.cbd.backend.model;
 
+import com.cbd.backend.model.dbo.OrderItem;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

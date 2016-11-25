@@ -1,7 +1,7 @@
 package com.cbd.backend.database;
 
-import com.cbd.backend.model.Authority;
-import com.cbd.backend.model.User;
+import com.cbd.backend.model.dbo.Authority;
+import com.cbd.backend.model.dbo.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +13,5 @@ public interface UserRepository extends MongoRepository<User, String> {
     List<Authority> findAuthoritiesByUsername(String username);
     User findTopByUsernameOrderByLastUpdated(String username);
     User findByUsername(String username);
+
 }

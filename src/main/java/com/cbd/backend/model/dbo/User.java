@@ -1,4 +1,4 @@
-package com.cbd.backend.model;
+package com.cbd.backend.model.dbo;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 
-public class User implements Serializable {
+public class User extends Model implements Serializable {
     private String username;
     private String password;
     private String firstName;
@@ -15,7 +15,6 @@ public class User implements Serializable {
     private String email;
     private String account;
     private long passwordUpdateDate;
-    private long lastUpdated;
     private String id;
 
     public long getIdSecurityNumber() {
@@ -30,22 +29,30 @@ public class User implements Serializable {
     private List<Authority> authority;
     private boolean isEnabled;
 
-    public User() {
-        super();
-    }
+    public User() {}
 
-    public User(String username, String password, String firstName, String lastName, String email, String account, long passwordUpdateDate, long id, List<Authority> authority, boolean isEnabled){
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.account = account;
-        this.passwordUpdateDate = passwordUpdateDate;
-        this.idSecurityNumber = id;
-        this.authority = authority;
-        this.isEnabled = isEnabled;
-    }
+    //TODO remove
+//    public User(String username,
+//                String password,
+//                String firstName,
+//                String lastName,
+//                String email,
+//                String account,
+//                long passwordUpdateDate,
+//                long id,
+//                List<Authority> authority,
+//                boolean isEnabled){
+//        this.username = username;
+//        this.password = password;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.account = account;
+//        this.passwordUpdateDate = passwordUpdateDate;
+//        this.idSecurityNumber = id;
+//        this.authority = authority;
+//        this.isEnabled = isEnabled;
+//    }
 
     public String getUsername() {
         return username;
@@ -103,14 +110,6 @@ public class User implements Serializable {
 
     public void setPasswordUpdateDate(long passwordUpdateDate) {
         this.passwordUpdateDate = passwordUpdateDate;
-    }
-
-    public long getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(long lastUpdated) {
-        this.lastUpdated = lastUpdated;
     }
 
     @JsonIgnore

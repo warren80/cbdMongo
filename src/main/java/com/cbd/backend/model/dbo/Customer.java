@@ -1,10 +1,10 @@
-package com.cbd.backend.model;
+package com.cbd.backend.model.dbo;
 
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
-public class Customer {
+public class Customer extends Model {
     private Address address;
     private String email;
     private String phoneNumber;
