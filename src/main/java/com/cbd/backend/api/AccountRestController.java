@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class AccountRestController {
 
     @Autowired
@@ -23,13 +25,14 @@ public class AccountRestController {
     private UserService userService;
 
 
-    static Logger log = Logger.getLogger( UserRestController.class.getName()) ;
+    static Logger log = Logger.getLogger( AccountRestController.class.getName()) ;
 
-    @RequestMapping(value= "${api.auth}", method = RequestMethod.POST)
-    public ResponseEntity<?> createNewUser(@RequestBody NewAccount newAccount ) {
+    @RequestMapping(value= "${api.createAccount}", method = RequestMethod.POST)
+    public ResponseEntity<?> createAccount(@RequestBody NewAccount newAccount ) {
+        log.info( "received request " + newAccount);
         AccountValidation av = accountService.validateAccount( newAccount );
 
-        if ( !av.isValid() ) {
+        if ( av.isValid() ) {
             log.error( "Invalid Account Creation Request: " + Helpers.objectToJson( newAccount ) );
             log.error( "Validation Result: " + Helpers.objectToJson( av ) );
             return ResponseEntity.ok( av );
@@ -53,6 +56,6 @@ public class AccountRestController {
         }
         NewAccount result = new NewAccount( savedAccount, savedUser );
 
-        return ResponseEntity.ok( savedAccount );
+        return ResponseEntity.ok( result );
     }
 }

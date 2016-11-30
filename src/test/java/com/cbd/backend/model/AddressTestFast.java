@@ -1,6 +1,7 @@
 package com.cbd.backend.model;
 
 import com.cbd.backend.model.Account.dbo.Account;
+import com.cbd.backend.model.Account.dbo.Address;
 import com.google.gson.Gson;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ public class AddressTestFast {
 
     @Test
     public void createAddressFast() {
-        Account.Address address = gson.fromJson(json, Account.Address.class );
+        Address address = gson.fromJson(json, Address.class );
         assertNotNull( address );
         assertTrue(address.getCity().equals("Vancouver"));
         assertTrue(address.getCountry().equals("Canada"));

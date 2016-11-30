@@ -39,16 +39,14 @@ public class UserRestControllerTestSlow extends FunctionalTest {
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername( new String( "newUser" ) );
         String token =  jwtTokenUtil.generateToken( userDetails, device );
 
-
-
         given()
                 .contentType( "application/json" )
                 .header( "Authorization", token )
                 .body( body )
                 .when()
-                .post("/api/users" )
+                .post( "/api/users" )
                 .then()
-                .body("username", equalTo( getNewUser().getUsername() ) );
+                .body( "username", equalTo( getNewUser().getUsername() ) );
 
         given()
                 .contentType( "application/json" )
@@ -57,8 +55,6 @@ public class UserRestControllerTestSlow extends FunctionalTest {
                 .delete("/api/users" )
                 .then()
                 .body("username", equalTo( getNewUser().getUsername() ) ).body( "enabled", equalTo( false ) );
-
-
     }
 
     @Test

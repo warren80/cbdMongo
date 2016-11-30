@@ -14,8 +14,8 @@ spring:
       database: test
 api:
   account: /api/accounts
-  auth: /api/auth
   createAccount: /api/createAccount
+  auth: /api/auth
   liveInventory:
     recipes: /api/liveInventory/stages
     plants: /api/liveInventory/plants
@@ -23,7 +23,7 @@ api:
     shifts: /api/liveInventory/shifts
     stages: /api/liveInventory/stages
   users: /api/users
-  usersSiteAdmin: /api/usersSiteAdmin]
+  usersSiteAdmin: /api/usersSiteAdmin
 
 
 jwt:

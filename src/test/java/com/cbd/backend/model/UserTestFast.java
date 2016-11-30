@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.cbd.backend.model.AuthorityPermission.ROLE_ACCOUNT_ADMIN;
+import static com.cbd.backend.model.AuthorityPermission.ROLE_SITE_USER;
 import static org.junit.Assert.*;
 
 public class UserTestFast {
@@ -61,7 +62,7 @@ public class UserTestFast {
         long timestamp = System.currentTimeMillis();
         NewUser u = new NewUser();
         List<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority( AuthorityPermission.ROLE_SITE_USER, true) );
+        authorities.add(new Authority( ROLE_SITE_USER, true) );
 
 
         u.setAuthority( authorities );
@@ -84,6 +85,7 @@ public class UserTestFast {
         NewUser u = new NewUser();
         List<Authority> authorities = new ArrayList<>();
         authorities.add( new Authority( ROLE_ACCOUNT_ADMIN, true ) );
+        authorities.add( new Authority( ROLE_SITE_USER, true ) );
 
 
         u.setAuthority( authorities );

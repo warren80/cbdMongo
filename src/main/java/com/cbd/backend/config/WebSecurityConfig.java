@@ -47,8 +47,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationTokenFilter();
     }
 
-    @Value( "api.auth")
-    private String authEndpoint;
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -73,13 +71,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
-                .antMatchers( "/api/auth/**",
-                        "api/createAccount/**" ).permitAll()
+                .antMatchers("/api/auth/**", "/api/createAccount/**").permitAll()
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter
-        httpSecurity
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity
+//                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         // disable page caching
         httpSecurity.headers().cacheControl();

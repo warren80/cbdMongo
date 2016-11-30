@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     static Logger log = Logger.getLogger( UserServiceImpl.class.getName() );
 
     @Override
-    public User addUser( final User user) {
+    public User addUser( final User user ) {
 
         user.setPassword(Helpers.passwordEncoder( user.getPassword() ) );
         log.debug( objectToJson( user ) );

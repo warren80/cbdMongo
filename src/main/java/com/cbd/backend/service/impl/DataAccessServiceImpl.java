@@ -52,7 +52,7 @@ public class DataAccessServiceImpl implements DataService {
     @Override
     public boolean accountExists( String name ) {
         Account account = GetLatestAccountByName( name );
-        return account != null;
+        return account == null;
 
     }
 
