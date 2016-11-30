@@ -4,6 +4,7 @@ import com.cbd.backend.common.Helpers;
 import com.cbd.backend.common.model.AccountValidation;
 import com.cbd.backend.model.Account.dbo.Account;
 import com.cbd.backend.model.NewAccount;
+import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.service.AccountService;
 import com.cbd.backend.service.UserService;
 import org.apache.log4j.Logger;
@@ -43,14 +44,15 @@ public class AccountRestController {
             log.error( "Failed to create account" );
             return ResponseEntity.ok( "Account Creation Exception" );
         }
-        NewAccount savedNewAccount = new NewAccount( savedAccount );
-
+        User savedUser;
         try {
-            newAccount.setNewUser( userService.addUser( newAccount.getNewUser() );
+            savedUser = userService.addUser( newAccount.getNewUser() );
         } catch ( Exception e ) {
             log.error( "Failed to create user account", e );
             return ResponseEntity.ok( savedAccount );
         }
+        NewAccount result = new NewAccount( savedAccount, savedUser );
+
         return ResponseEntity.ok( savedAccount );
     }
 }

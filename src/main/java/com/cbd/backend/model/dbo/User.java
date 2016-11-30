@@ -17,6 +17,8 @@ public class User extends Model implements Serializable {
     private long passwordUpdateDate;
     private String id;
 
+    public User() {}
+
     public long getIdSecurityNumber() {
         return idSecurityNumber;
     }

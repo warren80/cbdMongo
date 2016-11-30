@@ -1,6 +1,7 @@
 package com.cbd.backend.model;
 
 import com.cbd.backend.model.Account.dbo.Account;
+import com.cbd.backend.model.dbo.User;
 
 /**
  * Created by warrenvoelkl on 2016-11-27.
@@ -10,7 +11,7 @@ public class NewAccount extends Account {
 
 private NewUser newUser;
 
-    public NewAccount(Account savedAccount) {
+    public NewAccount(Account savedAccount, User savedUser) {
         super();
         this.setLastUpdated( savedAccount.getLastUpdated() );
         this.setAccountName( savedAccount.getAccountName() );
@@ -23,6 +24,8 @@ private NewUser newUser;
         this.setId( savedAccount.getId() );
         this.setMeasurements( savedAccount.getMeasurements() );
         this.setSubscriptionEndDate( savedAccount.getSubscriptionEndDate() );
+        NewUser u = new NewUser( savedUser );
+        this.setNewUser( u );
     }
 
     public NewAccount(){
