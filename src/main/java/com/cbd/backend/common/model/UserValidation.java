@@ -1,11 +1,8 @@
-package com.cbd.backend.model;
+package com.cbd.backend.common.model;
 
 import java.io.Serializable;
 
-/**
- * Created by warrenvoelkl on 2016-11-25.
- */
-public class UserValidationResult implements Serializable {
+public class UserValidation implements Serializable, Validation {
 
     private boolean isEmailValid;
     private boolean isUsernameValid;
@@ -14,7 +11,7 @@ public class UserValidationResult implements Serializable {
     private boolean isFirstNameValid;
     private boolean isLastNameValid;
 
-    public UserValidationResult() { }
+    public UserValidation() { }
 
     public boolean isEmailValid() {
         return isEmailValid;
@@ -66,5 +63,14 @@ public class UserValidationResult implements Serializable {
 
     public void setFirstNameValid(boolean firstNameValid) {
         isFirstNameValid = firstNameValid;
+    }
+
+    public boolean isValid() {
+        return isAccountValid()
+                && isEmailValid()
+                && isPasswordValid()
+                && isUsernameValid()
+                && isFirstNameValid()
+                && isLastNameValid();
     }
 }

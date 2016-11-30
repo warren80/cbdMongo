@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
-public class CustomerTest {
+public class CustomerTestFast {
 
     Gson gson = new Gson();
     @Test
-    public void gsonToCustomer() {
+    public void gsonToCustomerFast() {
         Customer customer = gson.fromJson(jsonBody, Customer.class);
         assertNotNull( customer );
         assertTrue( customer.getPhoneNumber().equals("6043196009") );

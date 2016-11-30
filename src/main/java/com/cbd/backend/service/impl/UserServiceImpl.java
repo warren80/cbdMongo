@@ -1,13 +1,11 @@
 package com.cbd.backend.service.impl;
 
-import com.cbd.backend.database.UserRepository;
-import com.cbd.backend.helper.EmailValidator;
-import com.cbd.backend.helper.Helpers;
-import com.cbd.backend.helper.PasswordValidator;
+import com.cbd.backend.common.Helpers;
+import com.cbd.backend.common.ValidationHelper;
 import com.cbd.backend.model.NewUser;
 import com.cbd.backend.model.dbo.Authority;
 import com.cbd.backend.model.dbo.User;
-import com.cbd.backend.model.UserValidationResult;
+import com.cbd.backend.common.model.UserValidation;
 import com.cbd.backend.service.DataService;
 import com.cbd.backend.service.UserService;
 import com.mongodb.MongoException;
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.cbd.backend.helper.Helpers.objectToJson;
+import static com.cbd.backend.common.Helpers.objectToJson;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,10 +26,9 @@ public class UserServiceImpl implements UserService {
     static Logger log = Logger.getLogger( UserServiceImpl.class.getName() );
 
     @Override
-    public User addUser(User user) {
+    public User addUser( final User user) {
 
         user.setPassword(Helpers.passwordEncoder( user.getPassword() ) );
-        log.info( "Saving New User: " + user.getUsername() );
         log.debug( objectToJson( user ) );
         User savedUser = persistUser( user );
 
@@ -39,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
+    public User updateUser(final User user) {
         return null;
     }
 
@@ -49,24 +46,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserValidationResult validateUser (NewUser user ) {
-        String email = user.getEmail();
-        UserValidationResult userValidationResult = new UserValidationResult();
+    public UserValidation validateUser( final NewUser user ) {
+        UserValidation userValidation = new UserValidation();
+        new ValidationHelper().validateUserFields( userValidation, user );
+        userValidation.setAccountValid( dataAccessService.accountExists( user.getAccount() ) );
+        userValidation.setUsernameValid( dataAccessService.verifyUsername( user.getUsername() ) );
 
-        PasswordValidator pwv = new PasswordValidator( userValidationResult );
-
-
-        log.debug( "Validating email: " + email);
-        userValidationResult.setEmailValid( EmailValidator.isValidMail( email ) );
-        pwv.validateNewPass( user.getPassword(), user.getPasswordCheck() );
-        userValidationResult.setAccountValid( dataAccessService.verifyAccount( user.getAccount() ) );
-
-        return userValidationResult;
+        return userValidation;
     }
 
-    private User persistUser( User user ) {
-        User savedUser = null;
+
+
+    @Override
+    public User disableUser( final String username) {
         try {
+            return dataAccessService.disableUser(username);
+        } catch ( Exception e ) {
+            log.error( "Failed to disable user", e );
+        }
+        return null;
+    }
+
+    private User persistUser( final User user ) {
+        User savedUser;
+        try {
+            log.info( "Saving New User: " + user.getUsername() );
             savedUser = dataAccessService.saveUser(user);
         } catch ( Exception e ) {
             log.error ( "Database Exception: ", e );
@@ -74,4 +78,6 @@ public class UserServiceImpl implements UserService {
         }
         return savedUser;
     }
+
+
 }

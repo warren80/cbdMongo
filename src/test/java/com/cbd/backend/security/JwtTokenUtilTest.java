@@ -10,9 +10,6 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by stephan on 10.09.16.
- */
 public class JwtTokenUtilTest {
 
     private JwtTokenUtil jwtTokenUtil;
@@ -25,7 +22,7 @@ public class JwtTokenUtilTest {
     }
 
     @Test
-    public void testGenerateTokenGeneratesDifferentTokensForDifferentCreationDates() throws Exception {
+    public void testGenerateTokenGeneratesDifferentTokensForDifferentCreationDatesFast() throws Exception {
         final Map<String, Object> claims = createClaims("2016-09-08T03:00:00");
         final String token = jwtTokenUtil.generateToken(claims);
 
@@ -42,5 +39,4 @@ public class JwtTokenUtilTest {
         claims.put(JwtTokenUtil.CLAIM_KEY_CREATED, DateUtil.parseDatetime(creationDate));
         return claims;
     }
-
 }

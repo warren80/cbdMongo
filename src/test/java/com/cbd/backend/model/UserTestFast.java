@@ -9,12 +9,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.cbd.backend.model.AuthorityPermission.ROLE_ACCOUNT_ADMIN;
 import static org.junit.Assert.*;
 
-/**
- * Created by warrenvoelkl on 2016-11-21.
- */
-public class UserTest {
+public class UserTestFast {
     Gson gson = new Gson();
 
     UserRepository userRepository;
@@ -27,7 +25,7 @@ public class UserTest {
     private static String account =  "BugsSoftware";
 
     @Test
-    public void createUser() {
+    public void createUserFast() {
         User u = getStockUser();
 
         assertNotNull( u.getAuthority() );
@@ -43,7 +41,7 @@ public class UserTest {
         long timestamp = System.currentTimeMillis();
         User u = new User();
         List<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority("admin" , true) );
+        authorities.add(new Authority( ROLE_ACCOUNT_ADMIN , true) );
 
 
         u.setAuthority( authorities );
@@ -59,6 +57,47 @@ public class UserTest {
 
         return u;
     }
+    public static NewUser getAccountUser( final String account ) {
+        long timestamp = System.currentTimeMillis();
+        NewUser u = new NewUser();
+        List<Authority> authorities = new ArrayList<>();
+        authorities.add(new Authority( AuthorityPermission.ROLE_SITE_USER, true) );
 
 
+        u.setAuthority( authorities );
+        u.setUsername( new String( "newUser" ) );
+        u.setPassword( new String( "vA!Id001" ) );
+        u.setPasswordCheck( "vA!Id001" );
+        u.setAccount( account );
+        u.setFirstName( firstName );
+        u.setLastName( lastName );
+        u.setEmail( email );
+        u.setPasswordUpdateDate( timestamp );
+        u.setLastUpdated( timestamp );
+        u.setSecurityId( 1L );
+
+        return u;
+    }
+
+    public static NewUser getNewUser() {
+        long timestamp = System.currentTimeMillis();
+        NewUser u = new NewUser();
+        List<Authority> authorities = new ArrayList<>();
+        authorities.add( new Authority( ROLE_ACCOUNT_ADMIN, true ) );
+
+
+        u.setAuthority( authorities );
+        u.setUsername( new String( "newUser" ) );
+        u.setPassword( new String( "vA!Id001" ) );
+        u.setPasswordCheck( "vA!Id001" );
+        u.setAccount( account );
+        u.setFirstName( firstName );
+        u.setLastName( lastName );
+        u.setEmail( email );
+        u.setPasswordUpdateDate( timestamp );
+        u.setLastUpdated( timestamp );
+        u.setSecurityId( 1L );
+
+        return u;
+    }
 }

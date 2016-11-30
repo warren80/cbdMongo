@@ -1,4 +1,4 @@
-package com.cbd.backend.model.dbo;
+package com.cbd.backend.model;
 
 /**
  * Created by warrenvoelkl on 2016-11-24.

@@ -1,5 +1,6 @@
-package com.cbd.backend.model.dbo;
+package com.cbd.backend.model.Account.dbo;
 
+import com.cbd.backend.model.Model;
 import org.springframework.data.annotation.Id;
 
 public class Address extends Model {
@@ -11,7 +12,12 @@ public class Address extends Model {
     @Id
     private String id;
 
-    public Address(String city, String streetNumber, String postalCode, String province, String country, String id) {
+    public Address( final String city,
+                    final String streetNumber,
+                    final String postalCode,
+                    final String province,
+                    final String country,
+                    final String id) {
         this.city = city;
         this.postalCode = postalCode;
         this.province = province;
@@ -24,7 +30,7 @@ public class Address extends Model {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity( final String city  ) {
         this.city = city;
     }
 
@@ -32,7 +38,7 @@ public class Address extends Model {
         return streetNumber;
     }
 
-    public void setStreetNumber(String streetNumber) {
+    public void setStreetNumber( final String streetNumber ) {
         this.streetNumber = streetNumber;
     }
 
@@ -40,7 +46,7 @@ public class Address extends Model {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode( final String postalCode ) {
         this.postalCode = postalCode;
     }
 
@@ -48,7 +54,7 @@ public class Address extends Model {
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince( final String province ) {
         this.province = province;
     }
 
@@ -56,7 +62,7 @@ public class Address extends Model {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry( final String country ) {
         this.country = country;
     }
 
@@ -64,7 +70,7 @@ public class Address extends Model {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId( final String id ) {
         this.id = id;
     }
 }

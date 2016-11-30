@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.cbd.backend.model.AuthorityPermission.*;
+
 /**
  * Created by stephan on 20.03.16.
  */
@@ -54,8 +56,8 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
         User u = new User();
 
         List<Authority> authorities = new ArrayList<Authority>();
-        authorities.add(new Authority("ROLE_SITE_ADMIN" , true) );
-        authorities.add(new Authority("ROLE_ACCOUNT_ADMIN", true) );
+        authorities.add(new Authority( ROLE_SITE_ADMIN , true) );
+        authorities.add(new Authority( ROLE_ACCOUNT_ADMIN, true) );
         // authorities.add(new Authority("ROLE_ACCOUNT_USER", true ) );
 
         u.setAuthority( authorities );

@@ -1,4 +1,4 @@
-package com.cbd.backend.helper;
+package com.cbd.backend.common;
 
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,7 @@ public class EmailValidator {
         boolean result = ev.isValid(email);
 
         if ( result ) {
-            log.error( "invalidEmail: " + email);
+            log.debug( "invalidEmail: " + email);
         }
         return result;
     }

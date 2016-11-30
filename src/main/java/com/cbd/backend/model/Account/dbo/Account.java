@@ -1,13 +1,22 @@
-package com.cbd.backend.model.dbo;
+package com.cbd.backend.model.Account.dbo;
 
-public class Account extends Model{
+import com.cbd.backend.model.Measurements;
+import com.cbd.backend.model.dbo.FarmPlotScheme;
+import com.cbd.backend.model.Model;
+
+import java.util.Locale;
+
+public class Account extends Model {
     private String accountName;
     private String accountPhone;
-    private String timeZone;
+    private Locale locale;
     private Measurements measurements;
     private FarmPlotScheme farmPlotScheme;
     private long subscriptionEndDate;
     private String id;
+    private boolean enabled;
+    private BillingDetails billingDetails;
+    private Address address;
 
     public String getAccountName() {
         return accountName;
@@ -23,14 +32,6 @@ public class Account extends Model{
 
     public void setAccountPhone(String accountPhone) {
         this.accountPhone = accountPhone;
-    }
-
-    public String getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
     }
 
     public Measurements getMeasurements() {
@@ -63,5 +64,37 @@ public class Account extends Model{
 
     public void setSubscriptionEndDate(long subscriptionEndDate) {
         this.subscriptionEndDate = subscriptionEndDate;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public BillingDetails getBillingDetails() {
+        return billingDetails;
+    }
+
+    public void setBillingDetails(BillingDetails billingDetails) {
+        this.billingDetails = billingDetails;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale local) {
+        this.locale = local;
     }
 }

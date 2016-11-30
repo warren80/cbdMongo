@@ -1,12 +1,14 @@
 package com.cbd.backend.service;
 
-import com.cbd.backend.model.dbo.Account;
+import com.cbd.backend.common.model.AccountValidation;
+import com.cbd.backend.common.model.UserValidation;
+import com.cbd.backend.model.Account.dbo.Account;
+import com.cbd.backend.model.NewAccount;
 
-/**
- * Created by warrenvoelkl on 2016-11-24.
- */
 public interface AccountService {
-    String createAccount( Account account );
-    String deactivateAccount( String accountId );
-    String activateAccount( String accountId );
+    Account createAccount( final Account account );
+    String deactivateAccount( final String accountId );
+    String activateAccount( final String accountId );
+
+    AccountValidation validateAccount(final NewAccount account );
 }

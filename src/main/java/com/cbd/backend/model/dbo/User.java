@@ -1,8 +1,8 @@
 package com.cbd.backend.model.dbo;
 
 
+import com.cbd.backend.model.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,31 +29,6 @@ public class User extends Model implements Serializable {
     private List<Authority> authority;
     private boolean isEnabled;
 
-    public User() {}
-
-    //TODO remove
-//    public User(String username,
-//                String password,
-//                String firstName,
-//                String lastName,
-//                String email,
-//                String account,
-//                long passwordUpdateDate,
-//                long id,
-//                List<Authority> authority,
-//                boolean isEnabled){
-//        this.username = username;
-//        this.password = password;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.account = account;
-//        this.passwordUpdateDate = passwordUpdateDate;
-//        this.idSecurityNumber = id;
-//        this.authority = authority;
-//        this.isEnabled = isEnabled;
-//    }
-
     public String getUsername() {
         return username;
     }
@@ -62,12 +37,10 @@ public class User extends Model implements Serializable {
         this.username = username;
     }
 
-    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
-    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

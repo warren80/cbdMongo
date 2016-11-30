@@ -1,9 +1,8 @@
-package com.cbd.backend.helper;
+package com.cbd.backend.common;
 
 
-import com.cbd.backend.model.UserValidationResult;
+import com.cbd.backend.common.model.UserValidation;
 import org.apache.log4j.Logger;
-import sun.security.util.Password;
 
 import java.util.regex.Pattern;
 
@@ -13,9 +12,9 @@ public class PasswordValidator {
     private final Pattern hasLowercase = Pattern.compile("[a-z]");
     private final Pattern hasNumber = Pattern.compile("\\d");
     private final Pattern hasSpecialChar = Pattern.compile("[^a-zA-Z0-9 ]");
-    private final UserValidationResult userValidationResults;
+    private final UserValidation userValidationResults;
 
-    public PasswordValidator( UserValidationResult results ) {
+    public PasswordValidator( UserValidation results ) {
         this.userValidationResults = results;
     }
     public void validateNewPass(String pass1, String pass2) {
@@ -31,7 +30,7 @@ public class PasswordValidator {
 
         if (pass1.equals(pass2)) {
 
-            if (pass1.length() < 9) {
+            if ( pass1.length() < 5 || pass1.length() > 20) {
                 log.info( "password length < 9" );
                 result = false;
             }

@@ -1,5 +1,6 @@
 package com.cbd.backend.model.dbo;
 
+import com.cbd.backend.model.Model;
 import org.springframework.data.annotation.Id;
 
 public class Inventory extends Model {
@@ -36,7 +37,7 @@ public class Inventory extends Model {
         return lastUpdated;
     }
 
-    public void setLastUpdated(long lastUpdated) {
+    public void setLastUpdated( final long lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }

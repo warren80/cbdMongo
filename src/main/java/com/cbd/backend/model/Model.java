@@ -1,8 +1,8 @@
-package com.cbd.backend.model.dbo;
+package com.cbd.backend.model;
 
-abstract class Model {
-    long lastUpdated;
-    Model() {
+public abstract class Model {
+    public long lastUpdated;
+    public Model() {
         lastUpdated = System.currentTimeMillis();
     }
 
@@ -10,7 +10,7 @@ abstract class Model {
         return lastUpdated;
     }
 
-    public void setLastUpdated(long lastUpdated) {
+    public void setLastUpdated( final long lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }
