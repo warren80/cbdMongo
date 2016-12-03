@@ -12,7 +12,7 @@ public class NewUser extends User {
         setFirstName( user.getFirstName() );
         setLastName( user.getLastName() );
         setEmail( user.getEmail() );
-        setAccount( user.getAccount() );
+        setFarm( user.getFarm() );
         setId( user.getId() );
     }
 

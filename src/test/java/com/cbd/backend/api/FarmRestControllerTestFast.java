@@ -59,38 +59,38 @@ public class FarmRestControllerTestFast {
 
     @Test
     public void createFarm() throws Exception {
-        NewFarm account = getNewFarm();
+        NewFarm farm = getNewFarm();
         when( farmRepository.save( any( Farm.class ) ) ).thenReturn( getNewFarm() );
         when( userRepository.save( any( User.class ) ) ).thenReturn( createFarmAdminUser() );
         when( userRepository.findFirstByUsername( any ( String.class) ) ).thenReturn( null );
         when( farmRepository.findFirstByFarmName( any ( String.class) ) ).thenReturn( null );
 
-        ResponseEntity<?> response = farmRestController.createFarm( account );
+        ResponseEntity<?> response = farmRestController.createFarm( farm );
         NewFarm body = (NewFarm) response.getBody();
         assertTrue( body.getFarmName().equals( "TestFarm" ) );
     }
 
     @Test
     public void usernameTaken() throws Exception {
-        NewFarm account = getNewFarm();
+        NewFarm farm = getNewFarm();
         when( farmRepository.findFirstByFarmName( any ( String.class) ) ).thenReturn( null );
         when( userRepository.findTopByUsernameOrderByLastUpdatedDesc( any ( String.class) ) ).thenReturn( createFarmAdminUser() );
-        ResponseEntity<?> response = farmRestController.createFarm( account );
+        ResponseEntity<?> response = farmRestController.createFarm( farm );
 
-        FarmValidation accountValidation = (FarmValidation) response.getBody();
-        assertTrue( accountValidation.isUsernameValid() == false );
+        FarmValidation farmValidation = (FarmValidation) response.getBody();
+        assertTrue( farmValidation.isUsernameValid() == false );
     }
 
     @Test
     public void farmNameTaken() throws Exception {
-        NewFarm account = getNewFarm();
+        NewFarm farm = getNewFarm();
         when( farmRepository.findFirstByFarmName( any ( String.class) ) ).thenReturn( getNewFarm() );
         when( userRepository.save( any( User.class ) ) ).thenReturn( null );
         when( userRepository.findFirstByUsername( any ( String.class) ) ).thenReturn( null);
-        ResponseEntity<?> response = farmRestController.createFarm( account );
+        ResponseEntity<?> response = farmRestController.createFarm( farm );
 
-        FarmValidation accountValidation = (FarmValidation) response.getBody();
-        assertTrue( accountValidation.isValidFarmName() == false );
+        FarmValidation farmValidation = (FarmValidation) response.getBody();
+        assertTrue( farmValidation.isValidFarmName() == false );
     }
 
     @Test
@@ -104,14 +104,14 @@ public class FarmRestControllerTestFast {
         when( farmRepository.findFirstByFarmName( any( String.class) ) ).thenReturn( null );
 
         ResponseEntity<?> response = farmRestController.createFarm( farm );
-        FarmValidation accountValidation = (FarmValidation) response.getBody();
+        FarmValidation farmValidation = (FarmValidation) response.getBody();
 
-        assertFalse( accountValidation.isValidFarmPhone() );
+        assertFalse( farmValidation.isValidFarmPhone() );
     }
     @Test
     public void newFarmFailBadMeasurementType() {
-        NewFarm account = getNewFarm();
-        account.setMeasurements( null );
+        NewFarm farm = getNewFarm();
+        farm.setMeasurements( null );
 
 
         when( farmRepository.save( any( Farm.class ) ) ).thenReturn( null );
@@ -119,7 +119,7 @@ public class FarmRestControllerTestFast {
         when( userRepository.findFirstByUsername( any ( String.class) ) ).thenReturn( null) ;
         when( farmRepository.findFirstByFarmName( any( String.class) ) ).thenReturn( null );
 
-        ResponseEntity<?> response = farmRestController.createFarm( account );
+        ResponseEntity<?> response = farmRestController.createFarm( farm );
         FarmValidation farmValidation = (FarmValidation) response.getBody();
 
         assertFalse( farmValidation.isValidMeasurements() );
@@ -127,15 +127,15 @@ public class FarmRestControllerTestFast {
 
     @Test
     public void newFarmFailBadSecondaryPhoneNumber() {
-        NewFarm account = getNewFarm();
-        account.setSecondaryFarmPhone( "23" );
+        NewFarm farm = getNewFarm();
+        farm.setSecondaryFarmPhone( "23" );
 
         when( farmRepository.save( any( Farm.class ) ) ).thenReturn( null );
         when( userRepository.save( any( User.class ) ) ).thenReturn( null );
         when( userRepository.findFirstByUsername( any ( String.class) ) ).thenReturn( null);
         when( farmRepository.findFirstByFarmName( any( String.class) ) ).thenReturn( null );
 
-        ResponseEntity<?> response = farmRestController.createFarm( account );
+        ResponseEntity<?> response = farmRestController.createFarm( farm );
         FarmValidation farmValidation = (FarmValidation) response.getBody();
 
         assertFalse( farmValidation.isValidSecondaryPhoneNumber() );

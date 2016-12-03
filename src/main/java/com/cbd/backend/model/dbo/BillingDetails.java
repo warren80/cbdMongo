@@ -1,4 +1,4 @@
-package com.cbd.backend.model.Account.dbo;
+package com.cbd.backend.model.dbo;
 
 public class BillingDetails {
     private Address address;

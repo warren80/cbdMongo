@@ -1,8 +1,8 @@
 package com.cbd.backend.service.impl;
 
-import com.cbd.backend.database.AccountRepository;
+import com.cbd.backend.database.FarmRepository;
 import com.cbd.backend.database.UserRepository;
-import com.cbd.backend.model.Account.dbo.Account;
+import com.cbd.backend.model.dbo.Farm;
 import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.service.DataService;
 import org.apache.log4j.Logger;
@@ -16,43 +16,43 @@ public class DataAccessServiceImpl implements DataService {
     UserRepository userRepository;
 
     @Autowired
-    AccountRepository accountRepository;
+    FarmRepository farmRepository;
     static Logger log = Logger.getLogger( DataAccessServiceImpl.class.getName() );
 
     @Override
-    public Account saveAccount(Account account) {
-        Account a;
+    public Farm saveFarm(Farm farm) {
+        Farm a;
         try {
-            a = accountRepository.save(account);
+            a = farmRepository.save(farm);
         } catch (Exception e) {
-            log.error("Failed to save account to database", e);
+            log.error("Failed to save farm to database", e);
             return null;
         }
         return a;
     }
 
     @Override
-    public Account disableAccount(final String accountName) {
-        Account a;
+    public Farm disableFarm(final String farmName) {
+        Farm a;
         try {
-            a = accountRepository.findByAccountNameOrderByLastUpdatedDesc( accountName );
+            a = farmRepository.findByFarmNameOrderByLastUpdatedDesc( farmName );
         } catch( Exception e) {
-            log.error( "Failed to retrieve account from database", e );
+            log.error( "Failed to retrieve farm from database", e );
             return null;
         }
         a.setEnabled( false );
         try {
-            return accountRepository.save( a );
+            return farmRepository.save( a );
         } catch( Exception e) {
-            log.error( "Failed disable account on database", e );
+            log.error( "Failed disable farm on database", e );
             return a;
         }
     }
 
     @Override
-    public boolean accountExists(String name ) {
-        Account account = accountRepository.findFirstByAccountName( name );
-        return account != null;
+    public boolean farmExists(String name ) {
+        Farm farm = farmRepository.findFirstByFarmName( name );
+        return farm != null;
 
     }
 
@@ -100,8 +100,8 @@ public class DataAccessServiceImpl implements DataService {
         }
     }
 
-    private Account getLatestAccountByName(String accountName ) {
-        return accountRepository.findByAccountNameOrderByLastUpdatedDesc( accountName );
+    private Farm getLatestFarmByName(String farmName ) {
+        return farmRepository.findByFarmNameOrderByLastUpdatedDesc( farmName );
     }
 
     private User getLatestUserByName(String userName ) {
@@ -112,7 +112,7 @@ public class DataAccessServiceImpl implements DataService {
         this.userRepository = userRepository;
     }
 
-    public void setAccountRepository(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
+    public void setFarmRepository(FarmRepository farmRepository) {
+        this.farmRepository = farmRepository;
     }
 }

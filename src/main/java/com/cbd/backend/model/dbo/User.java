@@ -13,7 +13,7 @@ public class User extends Model implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private String account;
+    private String farm;
     private long passwordUpdateDate;
     private String id;
 
@@ -71,12 +71,12 @@ public class User extends Model implements Serializable {
         this.email = email;
     }
 
-    public String getAccount() {
-        return account;
+    public String getFarm() {
+        return farm;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setFarm(String farm) {
+        this.farm = farm;
     }
 
     public long getPasswordUpdateDate() {

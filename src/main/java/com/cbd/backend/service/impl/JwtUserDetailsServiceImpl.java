@@ -5,7 +5,6 @@ import com.cbd.backend.model.dbo.Authority;
 import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.model.Factory.JwtUserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -56,7 +55,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
         List<Authority> authorities = new ArrayList<Authority>();
         authorities.add(new Authority( ROLE_SITE_ADMIN , true) );
-        authorities.add(new Authority( ROLE_ACCOUNT_ADMIN, true) );
+        authorities.add(new Authority(ROLE_FARM_ADMIN, true) );
         // authorities.add(new Authority("ROLE_ACCOUNT_USER", true ) );
 
         u.setAuthority( authorities );

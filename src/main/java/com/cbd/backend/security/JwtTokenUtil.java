@@ -22,7 +22,7 @@ public class JwtTokenUtil implements Serializable {
     static final String CLAIM_KEY_USERNAME = "sub";
     static final String CLAIM_KEY_AUDIENCE = "audience";
     static final String CLAIM_KEY_CREATED = "created";
-    static final String CLAIM_KEY_ACCOUNT = "account";
+    static final String CLAIM_KEY_ACCOUNT = "farm";
 
     private static final String AUDIENCE_UNKNOWN = "unknown";
     private static final String AUDIENCE_WEB = "web";
@@ -127,7 +127,7 @@ public class JwtTokenUtil implements Serializable {
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_AUDIENCE, generateAudience(device));
         claims.put(CLAIM_KEY_CREATED, new Date());
-        claims.put(CLAIM_KEY_ACCOUNT, userDetails.getAccount());
+        claims.put(CLAIM_KEY_ACCOUNT, userDetails.getFarm());
         return generateToken(claims);
     }
 

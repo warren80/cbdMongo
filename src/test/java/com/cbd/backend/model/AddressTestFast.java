@@ -1,7 +1,6 @@
 package com.cbd.backend.model;
 
-import com.cbd.backend.model.Account.dbo.Account;
-import com.cbd.backend.model.Account.dbo.Address;
+import com.cbd.backend.model.dbo.Address;
 import com.google.gson.Gson;
 import org.junit.Test;
 

@@ -1,16 +1,16 @@
 package com.cbd.backend.service.impl;
 
 import com.cbd.backend.common.ValidationHelper;
-import com.cbd.backend.common.model.AccountValidation;
-import com.cbd.backend.model.Account.dbo.Farm;
+import com.cbd.backend.common.model.FarmValidation;
+import com.cbd.backend.model.dbo.Farm;
 import com.cbd.backend.model.NewFarm;
-import com.cbd.backend.service.AccountService;
+import com.cbd.backend.service.FarmService;
 import com.cbd.backend.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountServiceImpl implements AccountService {
+public class FarmServiceImpl implements FarmService {
 
 
     //TODO subscription handling
@@ -18,42 +18,42 @@ public class AccountServiceImpl implements AccountService {
     DataService dataAccessService;
 
     @Override
-    public Farm createAccount(Farm account) {
-        return dataAccessService.saveAccount( account );
+    public Farm createFarm(Farm farm) {
+        return dataAccessService.saveFarm( farm );
     }
 
     @Override
-    public String deactivateAccount(String accountId) {
+    public String deactivateFarm(String farmId) {
         return null;
     }
 
     @Override
-    public String activateAccount(String accountId) {
+    public String activateFarm(String farmId) {
         return null;
     }
 
     @Override
-    public AccountValidation validateAccount(final NewFarm account ) {
-        AccountValidation accountValidation = new AccountValidation();
-        new ValidationHelper().validateNewAccount( accountValidation, account );
-        accountValidation.setValidAccountPhone( account.getFarmPhone() != null && account.getFarmPhone().matches("\\d{10}" ) );
-        accountValidation.setValidSecondaryPhoneNumber( account.getSecondaryAccountPhone() == null  || ( account.getSecondaryAccountPhone() != null && account.getSecondaryAccountPhone().matches("\\d{10}" ) ) );
+    public FarmValidation validateFarm(final NewFarm farm ) {
+        FarmValidation farmValidation = new FarmValidation();
+        new ValidationHelper().validateNewFarm( farmValidation, farm );
+        farmValidation.setValidFarmPhone( farm.getFarmPhone() != null && farm.getFarmPhone().matches("\\d{10}" ) );
+        farmValidation.setValidSecondaryPhoneNumber( farm.getSecondaryFarmPhone() == null  || ( farm.getSecondaryFarmPhone() != null && farm.getSecondaryFarmPhone().matches("\\d{10}" ) ) );
 
-        accountValidation.setValidMeasurements( account.getMeasurements() != null );
-        accountValidation.setValidAddress( account.getAddress() != null );
-        accountValidation.setAccountValid( account.getId() == null );
-        accountValidation.setValidBillingDetails( account.getBillingDetails() != null );
-        accountValidation.setValidFarmPlotScheme( true );
-        accountValidation.setValidSubscription( true );
-        accountValidation.setValidLocale( true );
+        farmValidation.setValidMeasurements( farm.getMeasurements() != null );
+        farmValidation.setValidAddress( farm.getAddress() != null );
+        farmValidation.setFarmValid( farm.getId() == null );
+//        farmValidation.setValidBillingDetails( farm.getBillingDetails() != null );
+        farmValidation.setValidFarmPlotScheme( true );
+        farmValidation.setValidSubscription( true );
+        farmValidation.setValidLocale( true );
 
-        if ( ! dataAccessService.accountExists( account.getFarmName() ) ) {
-            accountValidation.setValidAccountName( true );
+        if ( ! dataAccessService.farmExists( farm.getFarmName() ) ) {
+            farmValidation.setValidFarmName( true );
         }
-        if ( ! dataAccessService.userExists( account.getNewUser().getUsername() ) ) {
-            accountValidation.setUsernameValid( true );
+        if ( ! dataAccessService.userExists( farm.getNewUser().getUsername() ) ) {
+            farmValidation.setUsernameValid( true );
         }
-        return accountValidation;
+        return farmValidation;
     }
 
     public void setDataAccessService( final DataService dataAccessService ) {

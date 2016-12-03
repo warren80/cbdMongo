@@ -1,8 +1,8 @@
 package com.cbd.backend.common;
 
-import com.cbd.backend.common.model.AccountValidation;
+import com.cbd.backend.common.model.FarmValidation;
 import com.cbd.backend.common.model.UserValidation;
-import com.cbd.backend.model.NewAccount;
+import com.cbd.backend.model.NewFarm;
 import com.cbd.backend.model.NewUser;
 import com.cbd.backend.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
@@ -121,11 +121,11 @@ public class ValidationHelper {
         return result;
     }
 
-    public UserValidation validateNewAccount( final AccountValidation accountValidation, final NewAccount account ) {
-        validateUserFields( accountValidation, account.getNewUser() );
+    public UserValidation validateNewFarm(final FarmValidation farmValidation, final NewFarm farm ) {
+        validateUserFields( farmValidation, farm.getNewUser() );
         // TODO other checks
-        accountValidation.setValidLocale(account.getLocale() != null);
-        return accountValidation;
+        farmValidation.setValidLocale( farm.getLanguageAndCountry() != null);
+        return farmValidation;
     }
 
 

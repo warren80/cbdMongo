@@ -1,4 +1,4 @@
-package com.cbd.backend.model.Account.dbo;
+package com.cbd.backend.model.dbo;
 
 import java.util.TimeZone;
 
@@ -12,6 +12,8 @@ public class LanguageAndCountry {
         this.country = country;
         this.variant = variant;
     }
+
+    public LanguageAndCountry() {}
 
     public String getLanguage() {
         return language;

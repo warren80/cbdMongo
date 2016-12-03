@@ -1,13 +1,12 @@
 package com.cbd.backend.model.dbo;
 
-import com.cbd.backend.model.Account.dbo.Account;
 import com.cbd.backend.model.Model;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
 public class Customer extends Model {
-    private Account address;
+    private Farm address;
     private String email;
     private String phoneNumber;
     private String workNumber;
@@ -16,7 +15,7 @@ public class Customer extends Model {
     @Id
     private String id;
 
-    public Customer(String name, Account address, String email, String phoneNumber, String workNumber) {
+    public Customer(String name, Farm address, String email, String phoneNumber, String workNumber) {
         this.name = name;
         this.address = address;
         this.email = email;
@@ -24,11 +23,11 @@ public class Customer extends Model {
         this.workNumber = workNumber;
     }
 
-    public Account getAddress() {
+    public Farm getAddress() {
         return address;
     }
 
-    public void setAddress(Account address) {
+    public void setAddress(Farm address) {
         this.address = address;
     }
 

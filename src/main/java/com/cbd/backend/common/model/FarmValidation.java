@@ -1,8 +1,8 @@
 package com.cbd.backend.common.model;
 
-public class AccountValidation extends UserValidation {
-    private boolean validAccountName;
-    private boolean validAccountPhone;
+public class FarmValidation extends UserValidation {
+    private boolean validFarmName;
+    private boolean validFarmPhone;
 
     public boolean isValidSecondaryPhoneNumber() {
         return isValidSecondaryPhoneNumber;
@@ -16,16 +16,15 @@ public class AccountValidation extends UserValidation {
     private boolean validLocale;
     private boolean validMeasurements;
     private boolean validFarmPlotScheme;
-    private boolean validBillingDetails;
     private boolean validAddress;
     private boolean validSubscription;
 
-    public boolean isValidAccountPhone() {
-        return validAccountPhone;
+    public boolean isValidFarmPhone() {
+        return validFarmPhone;
     }
 
-    public void setValidAccountPhone(boolean validAccountPhone) {
-        this.validAccountPhone = validAccountPhone;
+    public void setValidFarmPhone(boolean validFarmPhone) {
+        this.validFarmPhone = validFarmPhone;
     }
 
     public boolean isValidLocale() {
@@ -52,14 +51,6 @@ public class AccountValidation extends UserValidation {
         this.validFarmPlotScheme = validFarmPlotScheme;
     }
 
-    public boolean isValidBillingDetails() {
-        return validBillingDetails;
-    }
-
-    public void setValidBillingDetails(boolean validBillingDetails) {
-        this.validBillingDetails = validBillingDetails;
-    }
-
     public boolean isValidAddress() {
         return validAddress;
     }
@@ -69,12 +60,12 @@ public class AccountValidation extends UserValidation {
     }
 
 
-    public boolean isValidAccountName() {
-        return validAccountName;
+    public boolean isValidFarmName() {
+        return validFarmName;
     }
 
-    public void setValidAccountName(boolean validAccountName) {
-        this.validAccountName = validAccountName;
+    public void setValidFarmName(boolean validFarmName) {
+        this.validFarmName = validFarmName;
     }
 
     public boolean isValidSubscription() {
@@ -87,18 +78,18 @@ public class AccountValidation extends UserValidation {
 
     @Override
     public boolean isValid() {
-        return isAccountValid()
+        return isFarmValid()
                 && isEmailValid()
                 && isPasswordValid()
                 && isUsernameValid()
                 && isFirstNameValid()
                 && isLastNameValid()
-                && isValidAccountPhone()
+                && isValidFarmPhone()
                 && isValidSecondaryPhoneNumber()
-                && isValidAccountName()
+                && isValidFarmName()
                 && isValidFarmPlotScheme()
                 && isValidAddress()
-                && isValidBillingDetails()
+//                && isValidBillingDetails()
                 && isValidLocale()
                 && isValidMeasurements()
                 && isValidSubscription();

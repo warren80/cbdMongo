@@ -1,7 +1,6 @@
-package com.cbd.backend.model.Account.dbo;
+package com.cbd.backend.model.dbo;
 
 import com.cbd.backend.model.Measurements;
-import com.cbd.backend.model.dbo.FarmPlotScheme;
 import com.cbd.backend.model.Model;
 import org.springframework.data.annotation.Id;
 
@@ -13,7 +12,7 @@ public class Farm extends Model {
     private FarmPlotScheme farmPlotScheme;
     private long subscriptionEndDate;
     private boolean enabled;
-    private BillingDetails billingDetails;
+//    private BillingDetails billingDetails;
     private Address address;
     private LanguageAndCountry languageAndCountry;
     @Id
@@ -67,14 +66,6 @@ public class Farm extends Model {
         this.enabled = enabled;
     }
 
-    public BillingDetails getBillingDetails() {
-        return billingDetails;
-    }
-
-    public void setBillingDetails(BillingDetails billingDetails) {
-        this.billingDetails = billingDetails;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -91,12 +82,12 @@ public class Farm extends Model {
         this.id = id;
     }
 
-    public String getSecondaryAccountPhone() {
+    public String getSecondaryFarmPhone() {
         return secondaryPhone;
     }
 
-    public void setSecondaryAccountPhone(String secondaryAccountPhone) {
-        this.secondaryPhone = secondaryAccountPhone;
+    public void setSecondaryFarmPhone(String secondaryFarmPhone) {
+        this.secondaryPhone = secondaryFarmPhone;
     }
 
 

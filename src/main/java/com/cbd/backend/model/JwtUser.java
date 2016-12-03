@@ -21,7 +21,7 @@ public class JwtUser implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
     private final boolean enabled;
     private final Date lastPasswordResetDate;
-    private final String account;
+    private final String farm;
 
     public JwtUser(
           Long id,
@@ -33,7 +33,7 @@ public class JwtUser implements UserDetails {
           Collection<? extends GrantedAuthority> authorities,
           boolean enabled,
           Date lastPasswordResetDate,
-          String account
+          String farm
     ) {
         this.id = id;
         this.username = username;
@@ -44,7 +44,7 @@ public class JwtUser implements UserDetails {
         this.authorities = authorities;
         this.enabled = enabled;
         this.lastPasswordResetDate = lastPasswordResetDate;
-        this.account = account;
+        this.farm = farm;
     }
 
     @JsonIgnore
@@ -108,7 +108,7 @@ public class JwtUser implements UserDetails {
         return lastPasswordResetDate;
     }
 
-    public String getAccount() {
-        return account;
+    public String getFarm() {
+        return farm;
     }
 }

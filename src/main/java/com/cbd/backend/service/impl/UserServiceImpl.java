@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     public UserValidation validateUser( final NewUser user ) {
         UserValidation userValidation = new UserValidation();
         new ValidationHelper().validateUserFields( userValidation, user );
-        userValidation.setAccountValid( dataAccessService.userExists( user.getAccount() ) );
+        userValidation.setFarmValid( dataAccessService.userExists( user.getFarm() ) );
         userValidation.setUsernameValid( dataAccessService.verifyUsername( user.getUsername() ) );
 
         return userValidation;

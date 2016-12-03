@@ -13,8 +13,8 @@ spring:
       uri: mongodb://localhost/test
       database: test
 api:
-  account: /api/accounts
-  createAccount: /api/createAccount
+  farm: /api/farm
+  createFarm: /api/createFarm
   auth: /api/auth
   inventory: /api/inventory
   liveInventory:

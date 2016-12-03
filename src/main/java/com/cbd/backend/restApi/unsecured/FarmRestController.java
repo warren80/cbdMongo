@@ -1,11 +1,11 @@
 package com.cbd.backend.restApi.unsecured;
 
 import com.cbd.backend.common.Helpers;
-import com.cbd.backend.common.model.AccountValidation;
-import com.cbd.backend.model.Account.dbo.Farm;
+import com.cbd.backend.common.model.FarmValidation;
+import com.cbd.backend.model.dbo.Farm;
 import com.cbd.backend.model.NewFarm;
 import com.cbd.backend.model.dbo.User;
-import com.cbd.backend.service.AccountService;
+import com.cbd.backend.service.FarmService;
 import com.cbd.backend.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,47 +13,47 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class AccountRestController {
+public class FarmRestController {
 
     @Autowired
-    private AccountService accountService;
+    private FarmService farmService;
 
     @Autowired
     private UserService userService;
 
-    static Logger log = Logger.getLogger( AccountRestController.class.getName()) ;
+    static Logger log = Logger.getLogger( FarmRestController.class.getName()) ;
 
-    @RequestMapping(value= "${api.createAccount}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAccount(@RequestBody NewFarm newAccount ) {
-        log.info( "received request " + newAccount);
-        AccountValidation av = accountService.validateAccount( newAccount );
+    @RequestMapping(value= "${api.createFarm}", method = RequestMethod.POST)
+    public ResponseEntity<?> createFarm(@RequestBody NewFarm newFarm ) {
+        log.info( "received request " + newFarm);
+        FarmValidation av = farmService.validateFarm( newFarm );
 
         if ( !av.isValid() ) {
-            log.error( "Invalid Farm Creation Request: " + Helpers.objectToJson( newAccount ) );
+            log.error( "Invalid Farm Creation Request: " + Helpers.objectToJson( newFarm ) );
             log.error( "Validation Result: " + Helpers.objectToJson( av ) );
             return ResponseEntity.ok( av );
         }
 
 
 
-        Farm savedAccount = null;
+        Farm savedFarm = null;
         try {
-            savedAccount = accountService.createAccount( newAccount );
+            savedFarm = farmService.createFarm( newFarm );
         } catch ( Exception e ) {
-            log.error( "Failed to create account: ", e );
+            log.error( "Failed to create farm: ", e );
         }
-        if( savedAccount == null ) {
+        if( savedFarm == null ) {
             return ResponseEntity.ok( "Farm Creation Exception" );
         }
 
         User savedUser;
         try {
-            savedUser = userService.addUser( newAccount.getNewUser() );
+            savedUser = userService.addUser( newFarm.getNewUser() );
         } catch ( Exception e ) {
-            log.error( "Failed to create user account", e );
-            return ResponseEntity.ok( savedAccount );
+            log.error( "Failed to create user farm", e );
+            return ResponseEntity.ok( savedFarm );
         }
-        NewFarm result = new NewFarm( savedAccount, savedUser );
+        NewFarm result = new NewFarm( savedFarm, savedUser );
 
         return ResponseEntity.ok( result );
     }

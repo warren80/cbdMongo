@@ -1,4 +1,4 @@
-package com.cbd.backend.model.Account.dbo;
+package com.cbd.backend.model.dbo;
 
 import com.cbd.backend.model.Model;
 import org.springframework.data.annotation.Id;

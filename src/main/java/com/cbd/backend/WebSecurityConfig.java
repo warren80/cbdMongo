@@ -71,8 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
-                .antMatchers("/api/auth/**", "/api/createAccount/**").permitAll()
-                .antMatchers( "/api/inventory" ).hasRole( "SITE_USER" )
+                .antMatchers("/api/auth/**", "/api/createFarm/**").permitAll()
+//                .antMatchers( "/api/inventory" ).hasRole( "SITE_USER" )
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter

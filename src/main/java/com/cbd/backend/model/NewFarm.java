@@ -1,34 +1,35 @@
 package com.cbd.backend.model;
 
-import com.cbd.backend.model.Account.dbo.Account;
+import com.cbd.backend.model.dbo.Farm;
 import com.cbd.backend.model.dbo.User;
 
 /**
  * Created by warrenvoelkl on 2016-11-27.
  */
-public class NewAccount extends Account {
+public class NewFarm extends Farm {
 
 
 private NewUser newUser;
 
-    public NewAccount(Account savedAccount, User savedUser) {
+    public NewFarm(Farm farm, User user) {
         super();
-        this.setLastUpdated( savedAccount.getLastUpdated() );
-        this.setAccountName( savedAccount.getAccountName() );
-        this.setAccountPhone( savedAccount.getAccountPhone() );
-        this.setAddress( savedAccount.getAddress() );
-        this.setBillingDetails( savedAccount.getBillingDetails() );
-        this.setEnabled( savedAccount.isEnabled() );
-        this.setFarmPlotScheme( savedAccount.getFarmPlotScheme() );
-        this.setLocale( savedAccount.getLocale() );
-        this.setId( savedAccount.getId() );
-        this.setMeasurements( savedAccount.getMeasurements() );
-        this.setSubscriptionEndDate( savedAccount.getSubscriptionEndDate() );
-        NewUser u = new NewUser( savedUser );
+        this.setLastUpdated( farm.getLastUpdated() );
+        this.setFarmName( farm.getFarmName() );
+        this.setFarmPhone( farm.getFarmPhone() );
+        this.setAddress( farm.getAddress() );
+        //this.setBillingDetails( farm.getBillingDetails() );
+        this.setEnabled( farm.isEnabled() );
+        this.setFarmPlotScheme( farm.getFarmPlotScheme() );
+        this.setLanguageAndCountry( farm.getLanguageAndCountry() );
+        this.setId( farm.getId() );
+        this.setMeasurements( farm.getMeasurements() );
+        this.setSubscriptionEndDate( farm.getSubscriptionEndDate() );
+
+        NewUser u = new NewUser( user );
         this.setNewUser( u );
     }
 
-    public NewAccount(){
+    public NewFarm(){
         super();
     }
 

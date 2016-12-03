@@ -1,7 +1,6 @@
 package com.cbd.backend.common;
 
 import com.cbd.backend.model.dbo.User;
-import com.cbd.backend.model.UserTestFast;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -12,7 +11,7 @@ import static org.junit.Assert.*;
 public class HelpersTest {
     @Test
     public void objectToJsonPasswordStrippedOutTestFast() throws Exception {
-        User u = getStockUser();
+        User u = createFarmAdminUser();
         String result = Helpers.objectToJson( u );
         assertTrue( u.getPassword() != null);
         ObjectMapper mapper = new ObjectMapper();
@@ -23,7 +22,7 @@ public class HelpersTest {
 
     @Test
     public void objectToJsonValidateDataTest() throws Exception {
-        User u = getStockUser();
+        User u = createFarmAdminUser();
         String result = Helpers.objectToJson( u );
 
         ObjectMapper mapper = new ObjectMapper();
@@ -31,7 +30,7 @@ public class HelpersTest {
 
         assertTrue( u2.getAuthority().get(0).getPermission().equals( u.getAuthority().get(0).getPermission() ) );
         assertTrue( u2.getLastName().equals( u.getLastName() ) );
-        assertTrue( u2.getAccount().equals( u.getAccount() ) );
+        assertTrue( u2.getFarm().equals( u.getFarm() ) );
         assertTrue( u2.getLastUpdated() == u.getLastUpdated() );
         assertTrue( u2.getEmail().equals( u.getEmail() ) );
         assertTrue( u2.getFirstName().equals( u.getFirstName() ) );

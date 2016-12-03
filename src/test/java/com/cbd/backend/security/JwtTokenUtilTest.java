@@ -47,8 +47,8 @@ public class JwtTokenUtilTest {
         String token =  jwtTokenUtil.generateToken( (JwtUser) jwtUser, device );
 
         Claims claims = jwtTokenUtil.getClaimsFromToken( token );
-        String accountName = (String) claims.get( "account" );
-        assertThat(accountName.equals( "testAccount" ) );
+        String farmName = (String) claims.get( "farm" );
+        assertThat(farmName.equals( "testFarm" ) );
     }
 
 
@@ -59,7 +59,7 @@ public class JwtTokenUtilTest {
         claims.put(JwtTokenUtil.CLAIM_KEY_USERNAME, "testUser");
         claims.put(JwtTokenUtil.CLAIM_KEY_AUDIENCE, "testAudience");
         claims.put(JwtTokenUtil.CLAIM_KEY_CREATED, DateUtil.parseDatetime(creationDate));
-        claims.put(JwtTokenUtil.CLAIM_KEY_ACCOUNT, "testAccount" );
+        claims.put(JwtTokenUtil.CLAIM_KEY_ACCOUNT, "testFarm" );
         return claims;
     }
 
@@ -69,7 +69,7 @@ public class JwtTokenUtilTest {
 
         List<Authority> authorities = new ArrayList<Authority>();
 //        authorities.add(new Authority( ROLE_SITE_ADMIN , true) );
-//        authorities.add(new Authority( ROLE_ACCOUNT_ADMIN, true) );
+//        authorities.add(new Authority( ROLE_FARM_ADMIN, true) );
         authorities.add(new Authority(ROLE_SITE_USER, true));
 
         u.setAuthority(authorities);
@@ -82,7 +82,7 @@ public class JwtTokenUtilTest {
         u.setLastUpdated(timestamp);
         u.setSecurityId(1L);
         u.setEnabled(true);
-        u.setAccount("testAccount");
+        u.setFarm("testFarm");
         return u;
     }
 
