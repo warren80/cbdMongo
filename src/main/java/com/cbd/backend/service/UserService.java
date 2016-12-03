@@ -13,5 +13,7 @@ public interface UserService {
     User updateUserAuthorities ( final List<Authority> authorities );
     UserValidation validateUser(final NewUser user );
     User disableUser( final String username );
+
+    void update(String username, User user);
 }
 

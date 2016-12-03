@@ -1,14 +1,20 @@
 package com.cbd.backend.security;
 
+import com.cbd.backend.model.Factory.JwtUserFactory;
+import com.cbd.backend.model.JwtUser;
+import com.cbd.backend.model.dbo.Authority;
+import com.cbd.backend.model.dbo.User;
+import io.jsonwebtoken.Claims;
 import org.assertj.core.util.DateUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import static com.cbd.backend.model.AuthorityPermission.ROLE_SITE_USER;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.mobile.device.FunctionalTest.device;
 
 public class JwtTokenUtilTest {
 
@@ -32,11 +38,59 @@ public class JwtTokenUtilTest {
         assertThat(token).isNotEqualTo(laterToken);
     }
 
+    @Test
+    public void getClaims() {
+
+        User user = createRegularSystemUser();
+        JwtUser jwtUser = createJwtUser( user );
+
+        String token =  jwtTokenUtil.generateToken( (JwtUser) jwtUser, device );
+
+        Claims claims = jwtTokenUtil.getClaimsFromToken( token );
+        String accountName = (String) claims.get( "account" );
+        assertThat(accountName.equals( "testAccount" ) );
+    }
+
+
+
+
     private Map<String, Object> createClaims(String creationDate) {
         Map<String, Object> claims = new HashMap();
         claims.put(JwtTokenUtil.CLAIM_KEY_USERNAME, "testUser");
         claims.put(JwtTokenUtil.CLAIM_KEY_AUDIENCE, "testAudience");
         claims.put(JwtTokenUtil.CLAIM_KEY_CREATED, DateUtil.parseDatetime(creationDate));
+        claims.put(JwtTokenUtil.CLAIM_KEY_ACCOUNT, "testAccount" );
         return claims;
     }
+
+    public User createRegularSystemUser() {
+        long timestamp = System.currentTimeMillis();
+        User u = new User();
+
+        List<Authority> authorities = new ArrayList<Authority>();
+//        authorities.add(new Authority( ROLE_SITE_ADMIN , true) );
+//        authorities.add(new Authority( ROLE_ACCOUNT_ADMIN, true) );
+        authorities.add(new Authority(ROLE_SITE_USER, true));
+
+        u.setAuthority(authorities);
+        u.setUsername("testUser");
+        u.setPassword("password");
+        u.setFirstName("Bob");
+        u.setLastName("Johnson");
+        u.setEmail("test@test.com");
+        u.setPasswordUpdateDate(timestamp);
+        u.setLastUpdated(timestamp);
+        u.setSecurityId(1L);
+        u.setEnabled(true);
+        u.setAccount("testAccount");
+        return u;
+    }
+
+    public JwtUser createJwtUser( User user ) {
+
+        JwtUser jwtUser = JwtUserFactory.create( user );
+        return jwtUser;
+    }
+
+
 }

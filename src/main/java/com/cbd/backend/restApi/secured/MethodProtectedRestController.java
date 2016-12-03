@@ -1,4 +1,4 @@
-package com.cbd.backend.api;
+package com.cbd.backend.restApi.secured;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

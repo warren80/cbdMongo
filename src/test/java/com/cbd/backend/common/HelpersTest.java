@@ -6,15 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import static com.cbd.backend.TestFactories.*;
 import static org.junit.Assert.*;
 
-/**
- * Created by warrenvoelkl on 2016-11-24.
- */
 public class HelpersTest {
     @Test
     public void objectToJsonPasswordStrippedOutTestFast() throws Exception {
-        User u = UserTestFast.getStockUser();
+        User u = getStockUser();
         String result = Helpers.objectToJson( u );
         assertTrue( u.getPassword() != null);
         ObjectMapper mapper = new ObjectMapper();
@@ -25,7 +23,7 @@ public class HelpersTest {
 
     @Test
     public void objectToJsonValidateDataTest() throws Exception {
-        User u = UserTestFast.getStockUser();
+        User u = getStockUser();
         String result = Helpers.objectToJson( u );
 
         ObjectMapper mapper = new ObjectMapper();

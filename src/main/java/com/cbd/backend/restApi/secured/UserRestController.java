@@ -1,4 +1,4 @@
-package com.cbd.backend.api;
+package com.cbd.backend.restApi.secured;
 
 import com.cbd.backend.common.Helpers;
 import com.cbd.backend.model.JwtUser;
@@ -55,9 +55,12 @@ public class UserRestController {
     }
 
     @RequestMapping( value = "${api.users}", method = RequestMethod.PUT )
-        public ResponseEntity<?> updateUser( @RequestBody User user ) {
-            return null;
-        }
+    public ResponseEntity<?> updateUser( HttpServletRequest request, @RequestBody User user ) {
+        String username = getUserNameFromAuthenticationFromRequest( request );
+//        AuthenticationService
+//        userService.update( username, , user );
+        return null;
+    }
 
     @RequestMapping( value = "${api.users}", method = RequestMethod.DELETE )
     public ResponseEntity<?> deleteUser(HttpServletRequest request) {
@@ -69,8 +72,7 @@ public class UserRestController {
 
     @RequestMapping( value = "${api.users}", method = RequestMethod.GET )
     public JwtUser getUser(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
+        String username = getUserNameFromAuthenticationFromRequest( request );
         JwtUser user = (JwtUser) userDetailsService.loadUserByUsername( username );
         return user;
     }
@@ -81,6 +83,17 @@ public class UserRestController {
 //TODO finish this
         UserDetails userDetails = this.userDetailsService.loadUserByUsername( userName );
 
+        return null;
+    }
+
+    private String getUserNameFromAuthenticationFromRequest( HttpServletRequest request ) {
+        String token = request.getHeader(tokenHeader);
+        return jwtTokenUtil.getUsernameFromToken(token);
+    }
+
+    private String getAuthoritiesFromRequest( HttpServletRequest request ) {
+        request.getHeader( tokenHeader );
+//        jwtTokenUtil.getC
         return null;
     }
 

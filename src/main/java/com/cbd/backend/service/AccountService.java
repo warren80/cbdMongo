@@ -11,4 +11,6 @@ public interface AccountService {
     String activateAccount( final String accountId );
 
     AccountValidation validateAccount(final NewAccount account );
+
+
 }

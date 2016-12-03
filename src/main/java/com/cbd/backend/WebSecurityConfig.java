@@ -1,4 +1,4 @@
-package com.cbd.backend.config;
+package com.cbd.backend;
 
 import com.cbd.backend.security.JwtAuthenticationEntryPoint;
 import com.cbd.backend.security.JwtAuthenticationTokenFilter;
@@ -72,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .antMatchers("/api/auth/**", "/api/createAccount/**").permitAll()
+                .antMatchers( "/api/inventory" ).hasRole( "SITE_USER" )
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter

@@ -15,7 +15,7 @@ public class EmailValidator {
         org.apache.commons.validator.routines.EmailValidator ev = org.apache.commons.validator.routines.EmailValidator.getInstance();
         boolean result = ev.isValid(email);
 
-        if ( result ) {
+        if ( !result ) {
             log.debug( "invalidEmail: " + email);
         }
         return result;

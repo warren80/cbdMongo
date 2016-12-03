@@ -1,4 +1,4 @@
-package com.cbd.backend.api;
+package com.cbd.backend.restApi.unsecured;
 
 import com.cbd.backend.common.Helpers;
 import com.cbd.backend.common.model.AccountValidation;
@@ -10,10 +10,7 @@ import com.cbd.backend.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AccountRestController {
@@ -24,7 +21,6 @@ public class AccountRestController {
     @Autowired
     private UserService userService;
 
-
     static Logger log = Logger.getLogger( AccountRestController.class.getName()) ;
 
     @RequestMapping(value= "${api.createAccount}", method = RequestMethod.POST)
@@ -32,7 +28,7 @@ public class AccountRestController {
         log.info( "received request " + newAccount);
         AccountValidation av = accountService.validateAccount( newAccount );
 
-        if ( av.isValid() ) {
+        if ( !av.isValid() ) {
             log.error( "Invalid Account Creation Request: " + Helpers.objectToJson( newAccount ) );
             log.error( "Validation Result: " + Helpers.objectToJson( av ) );
             return ResponseEntity.ok( av );
@@ -40,13 +36,16 @@ public class AccountRestController {
 
 
 
-        Account savedAccount;
+        Account savedAccount = null;
         try {
             savedAccount = accountService.createAccount( newAccount );
         } catch ( Exception e ) {
-            log.error( "Failed to create account" );
+            log.error( "Failed to create account: ", e );
+        }
+        if( savedAccount == null ) {
             return ResponseEntity.ok( "Account Creation Exception" );
         }
+
         User savedUser;
         try {
             savedUser = userService.addUser( newAccount.getNewUser() );
@@ -58,4 +57,6 @@ public class AccountRestController {
 
         return ResponseEntity.ok( result );
     }
+
+
 }

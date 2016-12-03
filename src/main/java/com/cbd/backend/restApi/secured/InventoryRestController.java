@@ -1,4 +1,4 @@
-package com.cbd.backend.api;
+package com.cbd.backend.restApi.secured;
 
 import com.cbd.backend.service.impl.InventoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ public class InventoryRestController {
     @Autowired
     InventoryServiceImpl inventoryServiceImpl;
 
-    @RequestMapping("/addInventory")
+    @RequestMapping(value = "${api.inventory}")
     public String addInventory() {
         inventoryServiceImpl.addInventory();
         return "Data Loaded";

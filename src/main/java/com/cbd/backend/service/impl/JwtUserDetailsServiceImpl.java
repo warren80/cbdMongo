@@ -1,10 +1,11 @@
-package com.cbd.backend.security.service;
+package com.cbd.backend.service.impl;
 
 import com.cbd.backend.database.UserRepository;
 import com.cbd.backend.model.dbo.Authority;
 import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.model.Factory.JwtUserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,9 +17,6 @@ import java.util.List;
 
 import static com.cbd.backend.model.AuthorityPermission.*;
 
-/**
- * Created by stephan on 20.03.16.
- */
 @Service
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
@@ -28,11 +26,12 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     @Value("${authentication.lastName}") String adminLastName;
     @Value("${authentication.email}") String adminEmail;
 
+
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername( final String username) throws UsernameNotFoundException {
 
         User user = null;
         if ( username.equalsIgnoreCase( "admin" ) ) {

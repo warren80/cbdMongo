@@ -10,12 +10,7 @@ import java.util.List;
 @Repository()
 public interface UserRepository extends MongoRepository<User, String> {
     List<User> findAll();
-    List<Authority> findAuthoritiesByUsername(String username);
-    User findTopByUsernameOrderByLastUpdatedAsc(String username);
     User findByUsername(String username);
-
-
     User findTopByUsernameOrderByLastUpdatedDesc(String username);
-
     User findFirstByUsername(String username);
 }

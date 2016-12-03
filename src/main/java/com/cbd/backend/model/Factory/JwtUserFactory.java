@@ -25,7 +25,8 @@ public final class JwtUserFactory {
                 user.getPassword(),
                 mapToGrantedAuthorities( user.getAuthority() ),
                 user.isEnabled(),
-                new Date( user.getPasswordUpdateDate() - ( 60 * 1000 * 1000))
+                new Date( user.getPasswordUpdateDate() - ( 60 * 1000 * 1000 ) ),
+                user.getAccount()
         );
     }
 

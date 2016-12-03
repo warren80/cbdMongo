@@ -20,12 +20,12 @@ public class DataAccessServiceImpl implements DataService {
     static Logger log = Logger.getLogger( DataAccessServiceImpl.class.getName() );
 
     @Override
-    public Account saveAccount( Account account ) {
+    public Account saveAccount(Account account) {
         Account a;
         try {
             a = accountRepository.save(account);
-        } catch ( Exception e ) {
-            log.error( "Failed to save account to database", e);
+        } catch (Exception e) {
+            log.error("Failed to save account to database", e);
             return null;
         }
         return a;
@@ -50,21 +50,17 @@ public class DataAccessServiceImpl implements DataService {
     }
 
     @Override
-    public boolean accountExists( String name ) {
-        Account account = GetLatestAccountByName( name );
-        return account == null;
+    public boolean accountExists(String name ) {
+        Account account = accountRepository.findFirstByAccountName( name );
+        return account != null;
 
     }
 
     @Override
     public boolean userExists( String name ) {
-        User user = GetLatestUserByName( name );
+        User user = getLatestUserByName( name );
         return user != null;
 
-    }
-
-    private User GetLatestUserByName(String name) {
-        return getLatestUserByName( name );
     }
 
     @Override
@@ -82,10 +78,7 @@ public class DataAccessServiceImpl implements DataService {
     @Override
     public boolean verifyUsername(String username) {
         User u = userRepository.findFirstByUsername(username);
-        if ( u == null ) {
-            return true;
-        }
-        return false;
+        return u != null;
     }
 
 
@@ -107,11 +100,19 @@ public class DataAccessServiceImpl implements DataService {
         }
     }
 
-    private Account GetLatestAccountByName(String accountName ) {
+    private Account getLatestAccountByName(String accountName ) {
         return accountRepository.findByAccountNameOrderByLastUpdatedDesc( accountName );
     }
 
     private User getLatestUserByName(String userName ) {
         return userRepository.findTopByUsernameOrderByLastUpdatedDesc( userName );
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 }

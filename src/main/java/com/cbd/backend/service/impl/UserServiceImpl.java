@@ -21,13 +21,14 @@ import static com.cbd.backend.common.Helpers.objectToJson;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    DataService dataAccessService;
+    private DataService dataAccessService;
 
     static Logger log = Logger.getLogger( UserServiceImpl.class.getName() );
 
     @Override
     public User addUser( final User user ) {
 
+        user.setEnabled( true );
         user.setPassword(Helpers.passwordEncoder( user.getPassword() ) );
         log.debug( objectToJson( user ) );
         User savedUser = persistUser( user );
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
     public UserValidation validateUser( final NewUser user ) {
         UserValidation userValidation = new UserValidation();
         new ValidationHelper().validateUserFields( userValidation, user );
-        userValidation.setAccountValid( dataAccessService.accountExists( user.getAccount() ) );
+        userValidation.setAccountValid( dataAccessService.userExists( user.getAccount() ) );
         userValidation.setUsernameValid( dataAccessService.verifyUsername( user.getUsername() ) );
 
         return userValidation;
@@ -67,6 +68,11 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public void update(String username, User user) {
+//        dataAccessService.GetLatestUserByName( username );
+    }
+
     private User persistUser( final User user ) {
         User savedUser;
         try {
@@ -79,5 +85,11 @@ public class UserServiceImpl implements UserService {
         return savedUser;
     }
 
-
+    /**
+     * facilitate testing
+     * @param dataAccessService
+     */
+    public void setDataAccessService(DataService dataAccessService) {
+        this.dataAccessService = dataAccessService;
+    }
 }

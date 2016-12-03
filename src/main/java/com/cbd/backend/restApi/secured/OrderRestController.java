@@ -1,4 +1,4 @@
-package com.cbd.backend.api;
+package com.cbd.backend.restApi.secured;
 
 import com.cbd.backend.database.OrderRepository;
 import com.cbd.backend.service.impl.OrderServiceImpl;

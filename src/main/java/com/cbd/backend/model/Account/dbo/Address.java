@@ -26,6 +26,8 @@ public class Address extends Model {
         this.id = id;
     }
 
+    public Address() {}
+
     public String getCity() {
         return city;
     }

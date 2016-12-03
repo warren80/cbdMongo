@@ -1,8 +1,9 @@
 package com.cbd.backend.api;
 
 import com.cbd.backend.common.Helpers;
+import com.cbd.backend.model.JwtUser;
 import com.cbd.backend.security.JwtTokenUtil;
-import com.cbd.backend.security.service.JwtUserDetailsServiceImpl;
+import com.cbd.backend.service.impl.JwtUserDetailsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.mobile.device.FunctionalTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.cbd.backend.model.UserTestFast.getNewUser;
+import static com.cbd.backend.TestFactories.*;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
@@ -37,7 +38,7 @@ public class UserRestControllerTestSlow extends FunctionalTest {
 
         String body = Helpers.objectToJson( getNewUser() );
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername( new String( "newUser" ) );
-        String token =  jwtTokenUtil.generateToken( userDetails, device );
+        String token =  jwtTokenUtil.generateToken( (JwtUser) userDetails, device );
 
         given()
                 .contentType( "application/json" )

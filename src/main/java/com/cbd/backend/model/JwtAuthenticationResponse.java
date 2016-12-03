@@ -1,4 +1,4 @@
-package com.cbd.backend.security.service;
+package com.cbd.backend.model;
 
 import java.io.Serializable;
 

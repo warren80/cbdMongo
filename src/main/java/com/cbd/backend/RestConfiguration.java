@@ -1,4 +1,4 @@
-package com.cbd.backend.config;
+package com.cbd.backend;
 
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

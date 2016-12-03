@@ -16,6 +16,7 @@ api:
   account: /api/accounts
   createAccount: /api/createAccount
   auth: /api/auth
+  inventory: /api/inventory
   liveInventory:
     recipes: /api/liveInventory/stages
     plants: /api/liveInventory/plants
@@ -42,7 +43,7 @@ authentication:
   email: admin@admin.com
 
 
-#logging:
-#  level:
-#    org.springframework:
-#      security: DEBUG
+logging:
+  level:
+    org.springframework:
+      security: DEBUG

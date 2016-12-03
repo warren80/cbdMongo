@@ -1,13 +1,18 @@
 package com.cbd.backend.common.model;
 
-import com.cbd.backend.model.dbo.User;
-
-/**
- * Created by warrenvoelkl on 2016-11-27.
- */
 public class AccountValidation extends UserValidation {
     private boolean validAccountName;
     private boolean validAccountPhone;
+
+    public boolean isValidSecondaryPhoneNumber() {
+        return isValidSecondaryPhoneNumber;
+    }
+
+    public void setValidSecondaryPhoneNumber(boolean validSecondaryPhoneNumber) {
+        isValidSecondaryPhoneNumber = validSecondaryPhoneNumber;
+    }
+
+    private boolean isValidSecondaryPhoneNumber;
     private boolean validLocale;
     private boolean validMeasurements;
     private boolean validFarmPlotScheme;
@@ -89,13 +94,13 @@ public class AccountValidation extends UserValidation {
                 && isFirstNameValid()
                 && isLastNameValid()
                 && isValidAccountPhone()
+                && isValidSecondaryPhoneNumber()
                 && isValidAccountName()
-                && isValidFarmPlotScheme();
-        //TODO finish validations
-//                && isValidAddress()
-//                && isValidBillingDetails()
-//                && isValidLocale()
-//                && isValidMeasurements()
-//                && isValidSubscription();;
+                && isValidFarmPlotScheme()
+                && isValidAddress()
+                && isValidBillingDetails()
+                && isValidLocale()
+                && isValidMeasurements()
+                && isValidSubscription();
     }
 }
