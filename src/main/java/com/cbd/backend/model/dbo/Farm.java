@@ -5,36 +5,34 @@ import com.cbd.backend.model.dbo.FarmPlotScheme;
 import com.cbd.backend.model.Model;
 import org.springframework.data.annotation.Id;
 
-import java.util.Locale;
-
-public class Account extends Model {
-    private String accountName;
-    private String accountPhone;
-    private String secondaryAccountPhone;
-    private Locale locale;
+public class Farm extends Model {
+    private String farmName;
+    private String farmPhone;
+    private String secondaryPhone;
     private Measurements measurements;
     private FarmPlotScheme farmPlotScheme;
     private long subscriptionEndDate;
     private boolean enabled;
     private BillingDetails billingDetails;
     private Address address;
+    private LanguageAndCountry languageAndCountry;
     @Id
     private String id;
 
-    public String getAccountName() {
-        return accountName;
+    public String getFarmName() {
+        return farmName;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public void setFarmName(String farmName) {
+        this.farmName = farmName;
     }
 
-    public String getAccountPhone() {
-        return accountPhone;
+    public String getFarmPhone() {
+        return farmPhone;
     }
 
-    public void setAccountPhone(String accountPhone) {
-        this.accountPhone = accountPhone;
+    public void setFarmPhone(String farmPhone) {
+        this.farmPhone = farmPhone;
     }
 
     public Measurements getMeasurements() {
@@ -85,14 +83,6 @@ public class Account extends Model {
         this.address = address;
     }
 
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(Locale local) {
-        this.locale = local;
-    }
-
     public String getId() {
         return id;
     }
@@ -102,10 +92,19 @@ public class Account extends Model {
     }
 
     public String getSecondaryAccountPhone() {
-        return secondaryAccountPhone;
+        return secondaryPhone;
     }
 
     public void setSecondaryAccountPhone(String secondaryAccountPhone) {
-        this.secondaryAccountPhone = secondaryAccountPhone;
+        this.secondaryPhone = secondaryAccountPhone;
+    }
+
+
+    public LanguageAndCountry getLanguageAndCountry() {
+        return languageAndCountry;
+    }
+
+    public void setLanguageAndCountry(LanguageAndCountry languageAndCountry) {
+        this.languageAndCountry = languageAndCountry;
     }
 }

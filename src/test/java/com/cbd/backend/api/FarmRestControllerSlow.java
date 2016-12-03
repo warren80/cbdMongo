@@ -1,7 +1,7 @@
 package com.cbd.backend.api;
 
 import com.cbd.backend.common.Helpers;
-import com.cbd.backend.model.NewAccount;
+import com.cbd.backend.model.NewFarm;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,22 +14,22 @@ import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class AccountRestControllerSlow extends FunctionalTest {
+public class FarmRestControllerSlow extends FunctionalTest {
 
     @Test
-    public void createNewAccountSlow() throws Exception {
+    public void createNewFarmSlow() throws Exception {
 
-        NewAccount account = getNewAccount();
-        String body = Helpers.objectToJson( account );
+        NewFarm farm = getNewFarm();
+        String body = Helpers.objectToJson( farm );
         //final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername( new String( "newUser" ) );
 //        String token =  jwtTokenUtil.generateToken( userDetails, device );
         given()
                 .contentType( "application/json" )
                 .body( body )
                 .when()
-                .post( "/api/createAccount" )
+                .post( "/api/createFarm" )
                 .then()
-                .body( "accountName", equalTo( account.getAccountName() ) );
+                .body( "farmName", equalTo( farm.getFarmName() ) );
     }
 
 }

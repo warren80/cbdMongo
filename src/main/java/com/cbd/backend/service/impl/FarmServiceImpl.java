@@ -2,9 +2,8 @@ package com.cbd.backend.service.impl;
 
 import com.cbd.backend.common.ValidationHelper;
 import com.cbd.backend.common.model.AccountValidation;
-import com.cbd.backend.model.Account.dbo.Account;
-import com.cbd.backend.model.Measurements;
-import com.cbd.backend.model.NewAccount;
+import com.cbd.backend.model.Account.dbo.Farm;
+import com.cbd.backend.model.NewFarm;
 import com.cbd.backend.service.AccountService;
 import com.cbd.backend.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class AccountServiceImpl implements AccountService {
     DataService dataAccessService;
 
     @Override
-    public Account createAccount(Account account) {
+    public Farm createAccount(Farm account) {
         return dataAccessService.saveAccount( account );
     }
 
@@ -34,10 +33,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountValidation validateAccount(final NewAccount account ) {
+    public AccountValidation validateAccount(final NewFarm account ) {
         AccountValidation accountValidation = new AccountValidation();
         new ValidationHelper().validateNewAccount( accountValidation, account );
-        accountValidation.setValidAccountPhone( account.getAccountPhone() != null && account.getAccountPhone().matches("\\d{10}" ) );
+        accountValidation.setValidAccountPhone( account.getFarmPhone() != null && account.getFarmPhone().matches("\\d{10}" ) );
         accountValidation.setValidSecondaryPhoneNumber( account.getSecondaryAccountPhone() == null  || ( account.getSecondaryAccountPhone() != null && account.getSecondaryAccountPhone().matches("\\d{10}" ) ) );
 
         accountValidation.setValidMeasurements( account.getMeasurements() != null );
@@ -48,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         accountValidation.setValidSubscription( true );
         accountValidation.setValidLocale( true );
 
-        if ( ! dataAccessService.accountExists( account.getAccountName() ) ) {
+        if ( ! dataAccessService.accountExists( account.getFarmName() ) ) {
             accountValidation.setValidAccountName( true );
         }
         if ( ! dataAccessService.userExists( account.getNewUser().getUsername() ) ) {

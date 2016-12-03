@@ -2,8 +2,8 @@ package com.cbd.backend.restApi.unsecured;
 
 import com.cbd.backend.common.Helpers;
 import com.cbd.backend.common.model.AccountValidation;
-import com.cbd.backend.model.Account.dbo.Account;
-import com.cbd.backend.model.NewAccount;
+import com.cbd.backend.model.Account.dbo.Farm;
+import com.cbd.backend.model.NewFarm;
 import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.service.AccountService;
 import com.cbd.backend.service.UserService;
@@ -24,26 +24,26 @@ public class AccountRestController {
     static Logger log = Logger.getLogger( AccountRestController.class.getName()) ;
 
     @RequestMapping(value= "${api.createAccount}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAccount(@RequestBody NewAccount newAccount ) {
+    public ResponseEntity<?> createAccount(@RequestBody NewFarm newAccount ) {
         log.info( "received request " + newAccount);
         AccountValidation av = accountService.validateAccount( newAccount );
 
         if ( !av.isValid() ) {
-            log.error( "Invalid Account Creation Request: " + Helpers.objectToJson( newAccount ) );
+            log.error( "Invalid Farm Creation Request: " + Helpers.objectToJson( newAccount ) );
             log.error( "Validation Result: " + Helpers.objectToJson( av ) );
             return ResponseEntity.ok( av );
         }
 
 
 
-        Account savedAccount = null;
+        Farm savedAccount = null;
         try {
             savedAccount = accountService.createAccount( newAccount );
         } catch ( Exception e ) {
             log.error( "Failed to create account: ", e );
         }
         if( savedAccount == null ) {
-            return ResponseEntity.ok( "Account Creation Exception" );
+            return ResponseEntity.ok( "Farm Creation Exception" );
         }
 
         User savedUser;
@@ -53,7 +53,7 @@ public class AccountRestController {
             log.error( "Failed to create user account", e );
             return ResponseEntity.ok( savedAccount );
         }
-        NewAccount result = new NewAccount( savedAccount, savedUser );
+        NewFarm result = new NewFarm( savedAccount, savedUser );
 
         return ResponseEntity.ok( result );
     }
