@@ -1,9 +1,9 @@
 package com.cbd.backend.common;
 
-import com.cbd.backend.common.model.FarmValidation;
+import com.cbd.backend.common.model.OrganizationValidation;
 import com.cbd.backend.common.model.UserValidation;
-import com.cbd.backend.model.NewFarm;
-import com.cbd.backend.model.NewUser;
+import com.cbd.backend.model.UserWithPasswordCheck;
+import com.cbd.backend.model.dbo.Organization;
 import com.cbd.backend.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -110,7 +110,7 @@ public class ValidationHelper {
         return states;
     }
 
-    public UserValidation validateUserFields(final UserValidation result, final NewUser user ) {
+    public UserValidation validateUserFields(final UserValidation result, final UserWithPasswordCheck user ) {
         PasswordValidator pwv = new PasswordValidator( result );
         result.setEmailValid( EmailValidator.isValidMail( user.getEmail() ) );
         pwv.validateNewPass( user.getPassword(), user.getPasswordCheck() );
@@ -121,11 +121,10 @@ public class ValidationHelper {
         return result;
     }
 
-    public UserValidation validateNewFarm(final FarmValidation farmValidation, final NewFarm farm ) {
-        validateUserFields( farmValidation, farm.getNewUser() );
+    public OrganizationValidation validateNewOrganization(final OrganizationValidation organizationValidation, final Organization organization ) {
         // TODO other checks
-        farmValidation.setValidLocale( farm.getLanguageAndCountry() != null);
-        return farmValidation;
+        organizationValidation.setValidLocale( organization.getLanguageAndCountry() != null);
+        return organizationValidation;
     }
 
 

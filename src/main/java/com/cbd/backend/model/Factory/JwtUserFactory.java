@@ -26,7 +26,22 @@ public final class JwtUserFactory {
                 mapToGrantedAuthorities( user.getAuthority() ),
                 user.isEnabled(),
                 new Date( user.getPasswordUpdateDate() - ( 60 * 1000 * 1000 ) ),
-                user.getFarm()
+                user.getOrganization()
+        );
+    }
+
+    public static JwtUser create(User user, String organization) {
+        return new JwtUser(
+                user.getIdSecurityNumber(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getPassword(),
+                mapToGrantedAuthorities( user.getAuthority() ),
+                user.isEnabled(),
+                new Date( user.getPasswordUpdateDate() - ( 60 * 1000 * 1000 ) ),
+                organization
         );
     }
 

@@ -13,4 +13,5 @@ public interface UserRepository extends MongoRepository<User, String> {
     User findByUsername(String username);
     User findTopByUsernameOrderByLastUpdatedDesc(String username);
     User findFirstByUsername(String username);
+    List<User> findAllByUsername( String username );
 }

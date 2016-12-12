@@ -3,7 +3,6 @@ package com.cbd.backend;
 import com.cbd.backend.security.JwtAuthenticationEntryPoint;
 import com.cbd.backend.security.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -53,13 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
 
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .exceptionHandling().authenticationEntryPoint( unauthorizedHandler ).and()
 
                 // don't create session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
 
                 .authorizeRequests()
-                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 // allow anonymous resource requests
                 .antMatchers(
@@ -71,13 +69,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
-                .antMatchers("/api/auth/**", "/api/createFarm/**").permitAll()
-//                .antMatchers( "/api/inventory" ).hasRole( "SITE_USER" )
+                .antMatchers( HttpMethod.DELETE, "/api/admin/**").hasAnyRole( "ADMIN" )
+                .antMatchers( HttpMethod.POST, "/api/user" ).hasRole( "CREATEUSER" )
+                .antMatchers( HttpMethod.PUT, "/api/user" ).hasRole( "UPDATE"  )
+                .antMatchers( HttpMethod.POST, "/api/auth/**" ).permitAll()
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter
-//        httpSecurity
-//                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         // disable page caching
         httpSecurity.headers().cacheControl();

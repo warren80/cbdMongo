@@ -3,6 +3,7 @@ package com.cbd.backend.model.dbo;
 
 import com.cbd.backend.model.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,9 +14,10 @@ public class User extends Model implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private String farm;
+    private String organization;
     private long passwordUpdateDate;
-    private String id;
+    @Id
+    private String _id;
 
     public User() {}
 
@@ -71,12 +73,12 @@ public class User extends Model implements Serializable {
         this.email = email;
     }
 
-    public String getFarm() {
-        return farm;
+    public String getOrganization() {
+        return organization;
     }
 
-    public void setFarm(String farm) {
-        this.farm = farm;
+    public void setOrganization(String organization) {
+        this.organization = organization;
     }
 
     public long getPasswordUpdateDate() {
@@ -87,14 +89,12 @@ public class User extends Model implements Serializable {
         this.passwordUpdateDate = passwordUpdateDate;
     }
 
-    @JsonIgnore
-    public String getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    @JsonIgnore
-    public void setId(String id) {
-        this.id = id;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public List<Authority> getAuthority() {

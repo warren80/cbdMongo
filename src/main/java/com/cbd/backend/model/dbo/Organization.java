@@ -4,9 +4,9 @@ import com.cbd.backend.model.Measurements;
 import com.cbd.backend.model.Model;
 import org.springframework.data.annotation.Id;
 
-public class Farm extends Model {
-    private String farmName;
-    private String farmPhone;
+public class Organization extends Model {
+    private String organizationName;
+    private String organizationPhone;
     private String secondaryPhone;
     private Measurements measurements;
     private FarmPlotScheme farmPlotScheme;
@@ -16,22 +16,22 @@ public class Farm extends Model {
     private Address address;
     private LanguageAndCountry languageAndCountry;
     @Id
-    private String id;
+    private String _id;
 
-    public String getFarmName() {
-        return farmName;
+    public String getOrganizationName() {
+        return organizationName;
     }
 
-    public void setFarmName(String farmName) {
-        this.farmName = farmName;
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
 
-    public String getFarmPhone() {
-        return farmPhone;
+    public String getOrganizationPhone() {
+        return organizationPhone;
     }
 
-    public void setFarmPhone(String farmPhone) {
-        this.farmPhone = farmPhone;
+    public void setOrganizationPhone(String organizationPhone) {
+        this.organizationPhone = organizationPhone;
     }
 
     public Measurements getMeasurements() {
@@ -40,14 +40,6 @@ public class Farm extends Model {
 
     public void setMeasurements(Measurements measurements) {
         this.measurements = measurements;
-    }
-
-    public FarmPlotScheme getFarmPlotScheme() {
-        return farmPlotScheme;
-    }
-
-    public void setFarmPlotScheme(FarmPlotScheme farmPlotScheme) {
-        this.farmPlotScheme = farmPlotScheme;
     }
 
     public long getSubscriptionEndDate() {
@@ -75,19 +67,19 @@ public class Farm extends Model {
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
-    public String getSecondaryFarmPhone() {
+    public String getSecondaryOrganizationPhone() {
         return secondaryPhone;
     }
 
-    public void setSecondaryFarmPhone(String secondaryFarmPhone) {
-        this.secondaryPhone = secondaryFarmPhone;
+    public void setSecondaryOrganizationPhone(String secondaryOrganizationPhone) {
+        this.secondaryPhone = secondaryOrganizationPhone;
     }
 
 
@@ -97,5 +89,13 @@ public class Farm extends Model {
 
     public void setLanguageAndCountry(LanguageAndCountry languageAndCountry) {
         this.languageAndCountry = languageAndCountry;
+    }
+
+    public FarmPlotScheme getFarmPlotScheme() {
+        return farmPlotScheme;
+    }
+
+    public void setFarmPlotScheme(FarmPlotScheme farmPlotScheme) {
+        this.farmPlotScheme = farmPlotScheme;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +26,14 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     @Value("${authentication.lastName}") String adminLastName;
     @Value("${authentication.email}") String adminEmail;
 
+    @Value("${createNewUser.user}") String createNewUser;
+    @Value("${createNewUser.password}") String createNewPass;
+    @Value("${createNewUser.firstName}") String createNewFirstName;
+    @Value("${createNewUser.lastName}") String createNewLastName;
+    @Value("${createNewUser.email}") String createNewEmail;
+
+
+
 
     @Autowired
     private UserRepository userRepository;
@@ -34,7 +43,9 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
         User user = null;
         if ( username.equalsIgnoreCase( "admin" ) ) {
-            user = createAdminSystemUser();
+            user = createAdminSystemUser( adminUser, adminPass, adminFirstName, adminLastName, adminEmail);
+        } else if (username.equalsIgnoreCase( "signup" ) ) {
+            user = createSignupUser();
         } else {
             try {
                 user = userRepository.findByUsername(username);
@@ -49,18 +60,18 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     }
 
 
-    private User createAdminSystemUser() {
+    public static User createAdminSystemUser( String adminUser, String adminPass, String adminFirstName, String adminLastName, String adminEmail ) {
         long timestamp = System.currentTimeMillis();
         User u = new User();
 
         List<Authority> authorities = new ArrayList<Authority>();
-        authorities.add(new Authority( ROLE_SITE_ADMIN , true) );
-        authorities.add(new Authority(ROLE_FARM_ADMIN, true) );
+        authorities.add(new Authority( ROLE_ADMIN, true) );
+        authorities.add(new Authority(ROLE_ORGANIZATION_ADMIN, true) );
         // authorities.add(new Authority("ROLE_ACCOUNT_USER", true ) );
 
         u.setAuthority( authorities );
         u.setUsername( adminUser );
-        u.setPassword( adminPass );
+        u.setPassword( BCrypt.hashpw( adminPass, BCrypt.gensalt() ) );
         u.setFirstName( adminFirstName );
         u.setLastName( adminLastName );
         u.setEmail( adminEmail );
@@ -70,4 +81,28 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
         u.setEnabled( true );
         return u;
     }
+
+    public User createSignupUser() {
+        long timestamp = System.currentTimeMillis();
+        User u = new User();
+
+        List<Authority> authorities = new ArrayList<Authority>();
+        authorities.add(new Authority(ROLE_CREATE_NEW_USER, true) );
+
+        u.setAuthority( authorities );
+        u.setUsername( createNewUser );
+        u.setPassword( BCrypt.hashpw( createNewPass, BCrypt.gensalt() ) );
+        u.setFirstName( createNewFirstName );
+        u.setLastName( createNewLastName );
+        u.setEmail( createNewEmail );
+        u.setPasswordUpdateDate( timestamp );
+        u.setLastUpdated( timestamp );
+        u.setSecurityId( 1L );
+        u.setEnabled( true );
+        return u;
+    }
+
+
+
+
 }

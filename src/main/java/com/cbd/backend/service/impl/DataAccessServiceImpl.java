@@ -1,59 +1,89 @@
 package com.cbd.backend.service.impl;
 
-import com.cbd.backend.database.FarmRepository;
+import com.cbd.backend.database.OrganizationRepository;
 import com.cbd.backend.database.UserRepository;
-import com.cbd.backend.model.dbo.Farm;
+import com.cbd.backend.model.dbo.Organization;
 import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.service.DataService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DataAccessServiceImpl implements DataService {
+
+    @Value( "${isPROD}" )
+    boolean isProd;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    FarmRepository farmRepository;
+    OrganizationRepository organizationRepository;
     static Logger log = Logger.getLogger( DataAccessServiceImpl.class.getName() );
 
     @Override
-    public Farm saveFarm(Farm farm) {
-        Farm a;
+    public Organization saveOrganization(Organization organization) {
+        Organization a;
         try {
-            a = farmRepository.save(farm);
+            a = organizationRepository.save(organization);
         } catch (Exception e) {
-            log.error("Failed to save farm to database", e);
+            log.error("Failed to save organization to database", e);
             return null;
         }
         return a;
     }
 
     @Override
-    public Farm disableFarm(final String farmName) {
-        Farm a;
+    public Organization disableOrganization(final String organizationName) {
+        Organization a;
         try {
-            a = farmRepository.findByFarmNameOrderByLastUpdatedDesc( farmName );
+            a = organizationRepository.findByOrganizationNameOrderByLastUpdatedDesc( organizationName );
         } catch( Exception e) {
-            log.error( "Failed to retrieve farm from database", e );
+            log.error( "Failed to retrieve organization from database", e );
             return null;
         }
         a.setEnabled( false );
         try {
-            return farmRepository.save( a );
+            return organizationRepository.save( a );
         } catch( Exception e) {
-            log.error( "Failed disable farm on database", e );
+            log.error( "Failed disable organization on database", e );
             return a;
         }
     }
 
     @Override
-    public boolean farmExists(String name ) {
-        Farm farm = farmRepository.findFirstByFarmName( name );
-        return farm != null;
+    public boolean organizationExists(String name ) {
+        Organization organization = organizationRepository.findFirstByOrganizationName( name );
+        return organization != null;
 
+    }
+
+    @Override
+    public boolean deleteOrganization(String organizationName) {
+        if ( isProd ) {
+            return false;
+        }
+        List<Organization> organizations = organizationRepository.findAllByOrganizationName( organizationName );
+        organizationRepository.delete(organizations);
+        return true;
+    }
+
+    public boolean deleteUser( String user ) {
+        if ( isProd ) {
+            return false;
+        }
+        List<User> users = userRepository.findAllByUsername( user );
+        userRepository.delete(users);
+        return true;
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userRepository.findTopByUsernameOrderByLastUpdatedDesc( username );
     }
 
     @Override
@@ -100,8 +130,8 @@ public class DataAccessServiceImpl implements DataService {
         }
     }
 
-    private Farm getLatestFarmByName(String farmName ) {
-        return farmRepository.findByFarmNameOrderByLastUpdatedDesc( farmName );
+    private Organization getLatestOrganizationByName(String organizationName ) {
+        return organizationRepository.findByOrganizationNameOrderByLastUpdatedDesc( organizationName );
     }
 
     private User getLatestUserByName(String userName ) {
@@ -112,7 +142,7 @@ public class DataAccessServiceImpl implements DataService {
         this.userRepository = userRepository;
     }
 
-    public void setFarmRepository(FarmRepository farmRepository) {
-        this.farmRepository = farmRepository;
+    public void setOrganizationRepository(OrganizationRepository organizationRepository) {
+        this.organizationRepository = organizationRepository;
     }
 }

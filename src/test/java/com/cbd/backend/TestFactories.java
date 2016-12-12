@@ -1,75 +1,53 @@
 package com.cbd.backend;
 
 
-import com.cbd.backend.model.dbo.Address;
-import com.cbd.backend.model.dbo.BillingDetails;
-import com.cbd.backend.model.dbo.LanguageAndCountry;
+import com.cbd.backend.model.dbo.*;
 import com.cbd.backend.model.Measurements;
-import com.cbd.backend.model.NewFarm;
-import com.cbd.backend.model.NewUser;
-import com.cbd.backend.model.dbo.Authority;
-import com.cbd.backend.model.dbo.FarmPlotScheme;
-import com.cbd.backend.model.dbo.User;
+import com.cbd.backend.model.UserWithPasswordCheck;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.cbd.backend.model.AuthorityPermission.ROLE_FARM_ADMIN;
-import static com.cbd.backend.model.AuthorityPermission.ROLE_SITE_USER;
+import static com.cbd.backend.model.AuthorityPermission.ROLE_ORGANIZATION_ADMIN;
+import static com.cbd.backend.model.AuthorityPermission.ROLE_READ_ACCESS;
 
 public class TestFactories {
-    public static NewFarm getNewFarm() {
+
+    public static Organization createOrganization() {
         long timestamp = System.currentTimeMillis();
 
-        List<Authority> authorities = new ArrayList<>();
-        String farmName = new String( "TestFarm" );
-        authorities.add( new Authority(ROLE_FARM_ADMIN, true ) );
 
-        NewFarm farm = new NewFarm();
-        farm.setSubscriptionEndDate( 1L );
-        farm.setMeasurements( Measurements.METRIC );
-        farm.setLanguageAndCountry( new LanguageAndCountry( "en", "CA", null ) );
-        farm.setLastUpdated( timestamp );
-        farm.setFarmName( farmName );
-        farm.setEnabled( true );
-        farm.setFarmPlotScheme( FarmPlotScheme.AREA );
-        farm.setFarmPhone( "6043196009" );
-//        farm.setBillingDetails( new BillingDetails() );
-        farm.setAddress( new Address() );
+        String organizationName = new String( "TestOrganization" );
 
-        NewUser u = new NewUser();
+        Organization organization = new Organization();
+        organization.setSubscriptionEndDate( 1L );
+        organization.setMeasurements( Measurements.METRIC );
+        organization.setLanguageAndCountry( new LanguageAndCountry( "en", "CA", null ) );
+        organization.setLastUpdated( timestamp );
+        organization.setOrganizationName( organizationName );
+        organization.setEnabled( true );
+        organization.setFarmPlotScheme( FarmPlotScheme.AREA );
+        organization.setOrganizationPhone( "6043196009" );
+//        organization.setBillingDetails( new BillingDetails() );
+        organization.setAddress( new Address() );
 
-        u.setAuthority( authorities );
-        u.setUsername( new String( "newUser" ) );
-        u.setPassword( new String( "vA!Id001" ) );
-        u.setPasswordCheck( "vA!Id001" );
-        u.setFarm( farmName );
-        u.setFirstName( firstName );
-        u.setLastName( lastName );
-        u.setEmail( email );
-        u.setPasswordUpdateDate( timestamp );
-        u.setLastUpdated( timestamp );
-        u.setSecurityId( 1L );
-
-        farm.setNewUser( u );
-
-        return farm;
+        return organization;
     }
 
 
-    public static NewUser getNewUser() {
+    public static UserWithPasswordCheck getNewUser() {
         long timestamp = System.currentTimeMillis();
-        NewUser u = new NewUser();
+        UserWithPasswordCheck u = new UserWithPasswordCheck();
         List<Authority> authorities = new ArrayList<>();
-        authorities.add( new Authority(ROLE_FARM_ADMIN, true ) );
-        authorities.add( new Authority( ROLE_SITE_USER, true ) );
+        authorities.add( new Authority(ROLE_ORGANIZATION_ADMIN, true ) );
+        authorities.add( new Authority(ROLE_READ_ACCESS, true ) );
 
 
         u.setAuthority( authorities );
         u.setUsername( new String( "newUser" ) );
         u.setPassword( new String( "vA!Id001" ) );
         u.setPasswordCheck( "vA!Id001" );
-        u.setFarm( farm );
+        u.setOrganization( organization );
         u.setFirstName( firstName );
         u.setLastName( lastName );
         u.setEmail( email );
@@ -80,38 +58,50 @@ public class TestFactories {
         return u;
     }
 
-    public static User createFarmUser(final String farm ) {
-        long timestamp = System.currentTimeMillis();
-        User u = new User();
-        List<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority( ROLE_SITE_USER, true) );
-
-
-        u.setAuthority( authorities );
-        u.setUsername( new String( "newUser" ) );
-        u.setPassword( new String( "vA!Id001" ) );
-        u.setFarm( farm );
-        u.setFirstName( firstName );
-        u.setLastName( lastName );
-        u.setEmail( email );
-        u.setPasswordUpdateDate( timestamp );
-        u.setLastUpdated( timestamp );
-        u.setSecurityId( 1L );
-
-        return u;
+    public static UserWithPasswordCheck getNewUser( final String username ) {
+        UserWithPasswordCheck user = getNewUser();
+        user.setUsername( username );
+        return user;
     }
 
-    public static User createFarmAdminUser() {
+
+    public static UserWithPasswordCheck getNewUser( final String username, final String organization ) {
+        UserWithPasswordCheck user = getNewUser();
+        user.setUsername( username );
+        user.setOrganization( organization );
+        return user;
+    }
+
+    public static User getNewUser(String admin, String org, String pass) {
+        UserWithPasswordCheck user = getNewUser();
+        user.setUsername( username );
+        user.setOrganization( org );
+        user.setPassword( pass );
+        return user;
+    }
+
+    public static Organization createOrganization( String orgName ) {
+        Organization org = createOrganization();
+        org.setOrganizationName( orgName );
         long timestamp = System.currentTimeMillis();
         User u = new User();
         List<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority(ROLE_FARM_ADMIN, true) );
+        authorities.add(new Authority( ROLE_READ_ACCESS, true) );
+
+        return org;
+    }
+
+    public static User createOrganizationAdminUser() {
+        long timestamp = System.currentTimeMillis();
+        User u = new User();
+        List<Authority> authorities = new ArrayList<>();
+        authorities.add(new Authority( ROLE_ORGANIZATION_ADMIN, true) );
 
 
         u.setAuthority( authorities );
         u.setUsername( username );
         u.setPassword( password );
-        u.setFarm(farm);
+        u.setOrganization(organization);
         u.setFirstName( firstName );
         u.setLastName( lastName );
         u.setEmail( email );
@@ -127,5 +117,5 @@ public class TestFactories {
     public static String firstName = "warren";
     public static String lastName = "voelkl";
     public static String email = "warrenvoelkl@gmail.com";
-    public static String farm =  "BugsSoftware";
+    public static String organization =  "BugsSoftware";
 }

@@ -3,20 +3,20 @@ package com.cbd.backend.model;
 import com.cbd.backend.model.dbo.User;
 
 
-public class NewUser extends User {
+public class UserWithPasswordCheck extends User {
     private String passwordCheck;
 
-    public NewUser(User user) {
+    public UserWithPasswordCheck(User user) {
         setUsername( user.getUsername() );
         setPassword( user.getPassword() );
         setFirstName( user.getFirstName() );
         setLastName( user.getLastName() );
         setEmail( user.getEmail() );
-        setFarm( user.getFarm() );
-        setId( user.getId() );
+        setOrganization( user.getOrganization() );
+        set_id( user.get_id() );
     }
 
-    public NewUser() {}
+    public UserWithPasswordCheck() {}
 
 
 

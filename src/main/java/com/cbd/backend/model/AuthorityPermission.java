@@ -1,10 +1,9 @@
 package com.cbd.backend.model;
 
 public enum AuthorityPermission {
-    ROLE_SITE_ADMIN,
-    ROLE_FARM_ADMIN,
-    ROLE_SITE_USER,
-    ROLE_CREATEUSER,
-    ROLE_UPDATEUSER
-
+    ROLE_ADMIN,
+    ROLE_ORGANIZATION_ADMIN,
+    ROLE_READ_ACCESS,
+    ROLE_WRITE,
+    ROLE_CREATE_NEW_USER
 }

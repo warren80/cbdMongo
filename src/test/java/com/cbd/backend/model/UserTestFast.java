@@ -12,12 +12,12 @@ public class UserTestFast {
 
     @Test
     public void createUserFast() {
-        User u = createFarmAdminUser();
+        User u = createOrganizationAdminUser();
 
         assertNotNull( u.getAuthority() );
         assertTrue( u.getUsername().equals( username ) );
         assertTrue( u.getPassword().equals( password ) );
-        assertTrue( u.getFarm().equals(farm) );
+        assertTrue( u.getOrganization().equals(organization) );
         assertTrue( u.getFirstName().equals( firstName ) );
         assertTrue( u.getLastName().equals( lastName ) );
         assertTrue( u.getEmail().equals( email ) );

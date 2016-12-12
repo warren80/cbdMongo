@@ -16,7 +16,7 @@ public class AddressTestFast {
         assertNotNull( address );
         assertTrue(address.getCity().equals("Vancouver"));
         assertTrue(address.getCountry().equals("Canada"));
-        assertTrue(address.getPostalCode().equals("v6e 1v6"));
+        assertTrue(address.getPostalCode().equals("v6e1v6"));
         assertTrue(address.getProvince().equals("BC"));
         assertTrue(address.getStreetNumber().equals("1311 Beach"));
     }

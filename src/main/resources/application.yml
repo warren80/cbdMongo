@@ -1,3 +1,6 @@
+
+isPROD: false
+
 # config context path to "/" by setting an empty string
 server:
   contextPath:
@@ -13,8 +16,8 @@ spring:
       uri: mongodb://localhost/test
       database: test
 api:
-  farm: /api/farm
-  createFarm: /api/createFarm
+  organization: /api/organization
+  createOrganization: /api/createOrganization
   auth: /api/auth
   inventory: /api/inventory
   liveInventory:
@@ -25,6 +28,8 @@ api:
     stages: /api/liveInventory/stages
   users: /api/users
   usersSiteAdmin: /api/usersSiteAdmin
+  admin:
+    deleteOrganization: /api/admin/deleteOrganization
 
 
 jwt:
@@ -37,11 +42,16 @@ jwt:
 
 authentication:
   user: admin
-  password: $2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi
+  password: admin
   firstName: admin
   lastName: admin
   email: admin@admin.com
-
+createNewUser:
+  user: signUp
+  password: signUp
+  firstName: signUp
+  lastName: signUp
+  email: admin@admin.com
 
 logging:
   level:

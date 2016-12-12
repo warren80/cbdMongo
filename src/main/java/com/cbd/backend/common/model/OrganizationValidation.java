@@ -1,30 +1,22 @@
 package com.cbd.backend.common.model;
 
-public class FarmValidation extends UserValidation {
-    private boolean validFarmName;
-    private boolean validFarmPhone;
-
-    public boolean isValidSecondaryPhoneNumber() {
-        return isValidSecondaryPhoneNumber;
-    }
-
-    public void setValidSecondaryPhoneNumber(boolean validSecondaryPhoneNumber) {
-        isValidSecondaryPhoneNumber = validSecondaryPhoneNumber;
-    }
+public class OrganizationValidation {
+    private boolean validOrganizationName;
+    private boolean validOrganizationPhone;
 
     private boolean isValidSecondaryPhoneNumber;
     private boolean validLocale;
     private boolean validMeasurements;
-    private boolean validFarmPlotScheme;
+    private boolean validOrganizationPlotScheme;
     private boolean validAddress;
     private boolean validSubscription;
 
-    public boolean isValidFarmPhone() {
-        return validFarmPhone;
+    public boolean isValidOrganizationPhone() {
+        return validOrganizationPhone;
     }
 
-    public void setValidFarmPhone(boolean validFarmPhone) {
-        this.validFarmPhone = validFarmPhone;
+    public void setValidOrganizationPhone(boolean validOrganizationPhone) {
+        this.validOrganizationPhone = validOrganizationPhone;
     }
 
     public boolean isValidLocale() {
@@ -43,12 +35,12 @@ public class FarmValidation extends UserValidation {
         this.validMeasurements = validMeasurements;
     }
 
-    public boolean isValidFarmPlotScheme() {
-        return validFarmPlotScheme;
+    public boolean isValidOrganizationPlotScheme() {
+        return validOrganizationPlotScheme;
     }
 
-    public void setValidFarmPlotScheme(boolean validFarmPlotScheme) {
-        this.validFarmPlotScheme = validFarmPlotScheme;
+    public void setValidOrganizationPlotScheme(boolean validOrganizationPlotScheme) {
+        this.validOrganizationPlotScheme = validOrganizationPlotScheme;
     }
 
     public boolean isValidAddress() {
@@ -60,12 +52,12 @@ public class FarmValidation extends UserValidation {
     }
 
 
-    public boolean isValidFarmName() {
-        return validFarmName;
+    public boolean isValidOrganizationName() {
+        return validOrganizationName;
     }
 
-    public void setValidFarmName(boolean validFarmName) {
-        this.validFarmName = validFarmName;
+    public void setValidOrganizationName(boolean validOrganizationName) {
+        this.validOrganizationName = validOrganizationName;
     }
 
     public boolean isValidSubscription() {
@@ -76,18 +68,21 @@ public class FarmValidation extends UserValidation {
         this.validSubscription = validSubscription;
     }
 
-    @Override
+
+
+    public boolean isValidSecondaryPhoneNumber() {
+        return isValidSecondaryPhoneNumber;
+    }
+
+    public void setValidSecondaryPhoneNumber(boolean validSecondaryPhoneNumber) {
+        isValidSecondaryPhoneNumber = validSecondaryPhoneNumber;
+    }
+
     public boolean isValid() {
-        return isFarmValid()
-                && isEmailValid()
-                && isPasswordValid()
-                && isUsernameValid()
-                && isFirstNameValid()
-                && isLastNameValid()
-                && isValidFarmPhone()
+        return isValidOrganizationPhone()
                 && isValidSecondaryPhoneNumber()
-                && isValidFarmName()
-                && isValidFarmPlotScheme()
+                && isValidOrganizationName()
+                && isValidOrganizationPlotScheme()
                 && isValidAddress()
 //                && isValidBillingDetails()
                 && isValidLocale()

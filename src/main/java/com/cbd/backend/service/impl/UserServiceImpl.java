@@ -2,13 +2,14 @@ package com.cbd.backend.service.impl;
 
 import com.cbd.backend.common.Helpers;
 import com.cbd.backend.common.ValidationHelper;
-import com.cbd.backend.model.NewUser;
+import com.cbd.backend.model.UserWithPasswordCheck;
 import com.cbd.backend.model.dbo.Authority;
 import com.cbd.backend.model.dbo.User;
 import com.cbd.backend.common.model.UserValidation;
 import com.cbd.backend.service.DataService;
 import com.cbd.backend.service.UserService;
 import com.mongodb.MongoException;
+import com.mongodb.WriteResult;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,10 +48,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserValidation validateUser( final NewUser user ) {
+    public UserValidation validateUser( final UserWithPasswordCheck user ) {
         UserValidation userValidation = new UserValidation();
         new ValidationHelper().validateUserFields( userValidation, user );
-        userValidation.setFarmValid( dataAccessService.userExists( user.getFarm() ) );
+        userValidation.setOrganizationValid( dataAccessService.userExists( user.getOrganization() ) );
         userValidation.setUsernameValid( dataAccessService.verifyUsername( user.getUsername() ) );
 
         return userValidation;
@@ -72,6 +73,32 @@ public class UserServiceImpl implements UserService {
     public void update(String username, User user) {
 //        dataAccessService.GetLatestUserByName( username );
     }
+
+    @Override
+    public boolean deleteUser( String user ) {
+        return dataAccessService.deleteUser( user );
+
+    }
+
+    @Override
+    public User setOrganization(String username, String organizationName) {
+        User user = null;
+        try {
+            user = dataAccessService.getUser( username );
+        } catch ( Exception e ) {
+            log.error( "Unable to retrieve user", e );
+            return null;
+        }
+        user.setOrganization( organizationName );
+        try {
+            dataAccessService.saveUser(user);
+        } catch ( Exception e ) {
+            log.error( "Unable to save use to db organization not updated", e );
+        }
+        return user;
+
+    }
+
 
     private User persistUser( final User user ) {
         User savedUser;

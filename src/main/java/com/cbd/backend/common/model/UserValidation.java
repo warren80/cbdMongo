@@ -7,7 +7,7 @@ public class UserValidation implements Serializable, Validation {
     private boolean isEmailValid;
     private boolean isUsernameValid;
     private boolean isPasswordValid;
-    private boolean isFarmValid;
+    private boolean isOrganizationValid;
     private boolean isFirstNameValid;
     private boolean isLastNameValid;
 
@@ -49,12 +49,12 @@ public class UserValidation implements Serializable, Validation {
 
 
 
-    public boolean isFarmValid() {
-        return isFarmValid;
+    public boolean isOrganizationValid() {
+        return isOrganizationValid;
     }
 
-    public void setFarmValid(boolean farmValid) {
-        isFarmValid = farmValid;
+    public void setOrganizationValid(boolean organizationValid) {
+        isOrganizationValid = organizationValid;
     }
 
     public boolean isFirstNameValid() {
@@ -66,7 +66,7 @@ public class UserValidation implements Serializable, Validation {
     }
 
     public boolean isValid() {
-        return isFarmValid()
+        return isOrganizationValid()
                 && isEmailValid()
                 && isPasswordValid()
                 && isUsernameValid()
